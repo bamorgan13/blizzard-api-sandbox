@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { retrieveChar } from './store/session';
+import { retrieveChar, retrieveCharMedia } from './store/session';
 
 function App() {
 	const dispatch = useDispatch();
@@ -35,17 +35,36 @@ function App() {
 
 	function charSubmit(e) {
 		e.preventDefault();
-		dispatch(retrieveChar(realm, server, name, oAuth));
+		dispatch(retrieveChar(realm, server, name.toLowerCase(), oAuth));
 	}
+
+	useEffect(
+		() => {
+			// If a valid current character exists and its assets have not been fetched
+			if (currentChar && !currentChar.error && !currentChar.assets) {
+				dispatch(retrieveCharMedia(currentChar.media.href, oAuth));
+			}
+		},
+		[ currentChar, oAuth, dispatch ]
+	);
 
 	return (
 		<div>
 			<h1>Blizz Sandbox</h1>
 			<form onSubmit={(e) => charSubmit(e)}>
-				<input type='text' value={realm} onChange={(e) => setRealm(e.target.value)} />
-				<input type='text' value={server} onChange={(e) => setServer(e.target.value)} />
-				<input type='text' value={name} onChange={(e) => setName(e.target.value.toLowerCase())} />
-				<input type='submit' value='Submit' />
+				<div className='form-group'>
+					<label htmlFor='realm'>Realm:</label>
+					<input name='realm' type='text' value={realm} onChange={(e) => setRealm(e.target.value)} />
+				</div>
+				<div className='form-group'>
+					<label htmlFor='Server'>Server:</label>
+					<input name='server' type='text' value={server} onChange={(e) => setServer(e.target.value)} />
+				</div>
+				<div className='form-group'>
+					<label htmlFor='name'>Name:</label>
+					<input name='name' type='text' value={name} onChange={(e) => setName(e.target.value)} />
+				</div>
+				<input type='submit' value='Retrieve Character' />
 			</form>
 			{currentChar ? currentChar.error ? (
 				<p>Character Not Found</p>
@@ -61,6 +80,7 @@ function App() {
 					<p>Equipped Item Level: {currentChar.equipped_item_level}</p>
 					<p>Guild: {currentChar.guild.name}</p>
 					<p>Last Login: {new Date(currentChar.last_login_timestamp).toLocaleString()}</p>
+					{currentChar.assets ? <img src={currentChar.assets.main} alt={`${currentChar.name} profile`} /> : ''}
 				</div>
 			) : (
 				''
