@@ -1,8 +1,16 @@
 @import './variables.scss';
 
+#root {
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
 button,
 input[type=submit] {
 	transition-duration: 0.5s;
+}
+
+body {
+	min-height: 940px;
 }
 
 .Death.Knight {

@@ -1,8 +1,15 @@
+@import './variables.scss';
+
 .app {
-	h1 {
-		font-size: 32px;
+	background-color: $darkbackground;
+	& > header {
 		height: 60px;
-		background-color: rebeccapurple;
+		display: flex;
+		justify-content: center;
+	}
+	h1 {
+		color: white;
+		font-size: 32px;
 		text-align: center;
 		margin: auto;
 	}
@@ -10,7 +17,6 @@
 .main-content {
 	display: flex;
 	height: calc(100% - 60px);
-	min-height: 870px;
 }
 
 nav {
@@ -20,5 +26,4 @@ nav {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: blue;
 }

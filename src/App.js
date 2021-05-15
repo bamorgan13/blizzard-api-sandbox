@@ -31,7 +31,9 @@ function App() {
 
 	return (
 		<div className='app'>
-			<h1>Blizz Sandbox</h1>
+			<header>
+				<h1>Blizz Sandbox</h1>
+			</header>
 			<div className='main-content'>
 				<nav>
 					<CharacterSearchForm oAuth={oAuth} />
