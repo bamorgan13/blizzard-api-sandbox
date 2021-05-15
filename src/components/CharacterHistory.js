@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectIndexData } from '../store/selectors';
 import { setCurrentChar } from '../store/session';
+import '../styles/CharacterHistory.scss';
 
 function CharacterHistory() {
 	const dispatch = useDispatch();
@@ -14,10 +15,14 @@ function CharacterHistory() {
 					<li key={char.charKey} className='char-history-list-item'>
 						<button onClick={() => dispatch(setCurrentChar(char.charKey))}>
 							<img src={char.avatarHref} alt={`${char.name} avatar`} />
-							<p>{char.name}</p>
-							<p>{char.realm}</p>
-							<p>{char.region}</p>
-							<p>{char.class}</p>
+							<div>
+								<p className={char.class}>
+									{char.name} - {char.class}
+								</p>
+								<p>
+									{char.realm} - {char.region.toUpperCase()}
+								</p>
+							</div>
 						</button>
 					</li>
 				))}

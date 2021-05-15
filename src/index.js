@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import './index.css';
+import './styles/reset.scss';
+import './styles/index.scss';
 import App from './App';
 import configureStore from './store';
 

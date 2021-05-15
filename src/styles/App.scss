@@ -1,0 +1,24 @@
+.app {
+	h1 {
+		font-size: 32px;
+		height: 60px;
+		background-color: rebeccapurple;
+		text-align: center;
+		margin: auto;
+	}
+}
+.main-content {
+	display: flex;
+	height: calc(100% - 60px);
+	min-height: 870px;
+}
+
+nav {
+	width: 20%;
+	min-width: 340px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: blue;
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CharacterDetails from './components/CharacterDetails';
 import CharacterHistory from './components/CharacterHistory';
 import CharacterSearchForm from './components/CharacterSearchForm';
+import './styles/App.scss';
 
 function App() {
 	const [ oAuth, setOAuth ] = useState();
@@ -29,11 +30,15 @@ function App() {
 	}, []);
 
 	return (
-		<div>
+		<div className='app'>
 			<h1>Blizz Sandbox</h1>
-			<CharacterSearchForm oAuth={oAuth} />
-			<CharacterDetails />
-			<CharacterHistory />
+			<div className='main-content'>
+				<nav>
+					<CharacterSearchForm oAuth={oAuth} />
+					<CharacterHistory />
+				</nav>
+				<CharacterDetails />
+			</div>
 		</div>
 	);
 }

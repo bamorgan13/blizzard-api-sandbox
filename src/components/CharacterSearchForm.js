@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { selectAvailableRealms } from '../store/selectors';
 import { fetchChar } from '../store/characters';
+import '../styles/CharacterSearchForm.scss';
 
 function CharacterSearchForm({ oAuth }) {
 	const dispatch = useDispatch();
@@ -57,7 +58,13 @@ function CharacterSearchForm({ oAuth }) {
 			</div>
 			<div className='form-group'>
 				<label htmlFor='name'>Name:</label>
-				<input name='name' type='text' value={name} onChange={(e) => setName(e.target.value)} />
+				<input
+					name='name'
+					type='text'
+					placeholder='Enter Character Name'
+					value={name}
+					onChange={(e) => setName(e.target.value)}
+				/>
 			</div>
 			<input type='submit' value='Retrieve Character' />
 		</form>

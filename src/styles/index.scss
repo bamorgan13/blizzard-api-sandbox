@@ -1,0 +1,58 @@
+@import './variables.scss';
+
+button,
+input[type=submit] {
+	transition-duration: 0.5s;
+}
+
+.Death.Knight {
+	color: $deathknight;
+}
+.Demon.Hunter {
+	color: $demonhunter;
+}
+.Druid {
+	color: $druid;
+}
+.Hunter {
+	color: $hunter;
+}
+.Mage {
+	color: $mage;
+}
+.Monk {
+	color: $monk;
+}
+.Paladin {
+	color: $paladin;
+}
+.Priest {
+	color: $priest;
+}
+.Rogue {
+	color: $rogue;
+}
+.Shaman {
+	color: $shaman;
+}
+.Warlock {
+	color: $warlock;
+}
+.Warrior {
+	color: $warrior;
+}
+
+.Death.Knight,
+.Demon.Hunter,
+.Druid,
+.Hunter,
+.Mage,
+.Monk,
+.Paladin,
+.Priest,
+.Rogue,
+.Shaman,
+.Warlock,
+.Warrior {
+	font-weight: bold;
+}

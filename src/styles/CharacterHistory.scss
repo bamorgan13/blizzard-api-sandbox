@@ -1,0 +1,41 @@
+.char-history {
+	width: 90%;
+	height: 100%;
+	background-color: orange;
+	border: 1px solid black;
+	padding: 5px;
+
+	h3 {
+		font-size: 24px;
+		text-align: center;
+	}
+
+	ul {
+		display: flex;
+		flex-direction: column;
+
+		li {
+			margin: 5px 0;
+		}
+
+		button {
+			display: flex;
+			width: 100%;
+			border: 1px solid black;
+			background-color: lightgray;
+
+			img {
+				width: 30%;
+				height: auto;
+			}
+
+			p {
+				cursor: pointer;
+			}
+
+			&:hover {
+				background-color: gray;
+			}
+		}
+	}
+}
