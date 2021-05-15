@@ -22,3 +22,13 @@ export function selectCharInfo(region, charData, media) {
 		assets
 	};
 }
+
+export function selectAvailableRealms(realmData) {
+	const availableRealms = realmData.realms.map((realm) => {
+		return { name: realm.name, slug: realm.slug };
+	});
+	// Add default unselected state
+	availableRealms.push({ name: '--Select Realm--', slug: '' });
+	// Sort realms alphabetically by name instead of the default id
+	return availableRealms.sort((a, b) => (a.name < b.name ? -1 : 1));
+}

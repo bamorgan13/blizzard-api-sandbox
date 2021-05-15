@@ -18,7 +18,7 @@ export const setCharNotFound = () => {
 
 export const retrieveChar = (region, realm, name, oAuth) => async (dispatch) => {
 	const charRes = await fetch(
-		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}?namespace=profile-us&locale=en_US&access_token=${oAuth}`
+		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}?namespace=profile-${region}&locale=en_US&access_token=${oAuth}`
 	);
 	const charData = await charRes.json();
 	if (charData.detail && charData.detail === 'Not Found') {

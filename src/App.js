@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { selectAvailableRealms } from './store/selectors';
 import { retrieveChar } from './store/session';
 
 function App() {
 	const dispatch = useDispatch();
 	const currentChar = useSelector((state) => state.session.currentChar);
 	const [ oAuth, setOAuth ] = useState();
+	const [ region, setRegion ] = useState('us');
+	const [ realm, setRealm ] = useState('');
+	const [ realmOptions, setRealmOptions ] = useState([ { name: '--Select Realm--', slug: '' } ]);
+	const [ name, setName ] = useState('');
 
 	// Retrieve oAuth access token on initial app load
 	useEffect(() => {
@@ -29,9 +34,23 @@ function App() {
 		authorize();
 	}, []);
 
-	const [ region, setRegion ] = useState('us');
-	const [ realm, setRealm ] = useState('zuljin');
-	const [ name, setName ] = useState('');
+	// Dynamically fetch the available realms when a new region is selected
+	useEffect(
+		() => {
+			if (oAuth) {
+				async function fetchRealms() {
+					const res = await fetch(
+						`https://${region}.api.blizzard.com/data/wow/realm/index?namespace=dynamic-${region}&locale=en_US&access_token=${oAuth}`
+					);
+					const parsed = await res.json();
+
+					setRealmOptions(selectAvailableRealms(parsed));
+				}
+				fetchRealms();
+			}
+		},
+		[ region, oAuth ]
+	);
 
 	function charSubmit(e) {
 		e.preventDefault();
@@ -44,11 +63,22 @@ function App() {
 			<form onSubmit={(e) => charSubmit(e)}>
 				<div className='form-group'>
 					<label htmlFor='region'>Region:</label>
-					<input name='region' type='text' value={region} onChange={(e) => setRegion(e.target.value)} />
+					<select name='region' value={region} onChange={(e) => setRegion(e.target.value)}>
+						<option value='us'>North America</option>
+						<option value='eu'>Europe</option>
+						<option value='kr'>Korea</option>
+						<option value='tw'>Taiwan</option>
+					</select>
 				</div>
 				<div className='form-group'>
 					<label htmlFor='Realm'>Realm:</label>
-					<input name='realm' type='text' value={realm} onChange={(e) => setRealm(e.target.value)} />
+					<select name='realm' value={realm} onChange={(e) => setRealm(e.target.value)}>
+						{realmOptions.map((realmOpt) => (
+							<option value={realmOpt.slug} key={realmOpt.slug}>
+								{realmOpt.name}
+							</option>
+						))}
+					</select>
 				</div>
 				<div className='form-group'>
 					<label htmlFor='name'>Name:</label>
