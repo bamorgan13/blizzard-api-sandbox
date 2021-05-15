@@ -18,6 +18,10 @@ export const receiveChar = (key, data) => {
 };
 
 export const fetchChar = (region, realm, name, oAuth) => async (dispatch) => {
+	if (!(realm && name)) {
+		dispatch(setCharNotFound());
+		return;
+	}
 	const charRes = await fetch(
 		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}?namespace=profile-${region}&locale=en_US&access_token=${oAuth}`
 	);

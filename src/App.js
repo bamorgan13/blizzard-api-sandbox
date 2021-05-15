@@ -5,7 +5,8 @@ import { fetchChar } from './store/characters';
 
 function App() {
 	const dispatch = useDispatch();
-	const currentChar = useSelector((state) => state.characters[state.session.currentChar]);
+	const currentCharKey = useSelector((state) => state.session.currentChar);
+	const currentChar = useSelector((state) => state.characters[currentCharKey]);
 	const [ oAuth, setOAuth ] = useState();
 	const [ region, setRegion ] = useState('us');
 	const [ realm, setRealm ] = useState('');
@@ -86,9 +87,7 @@ function App() {
 				</div>
 				<input type='submit' value='Retrieve Character' />
 			</form>
-			{currentChar ? currentChar.error ? (
-				<p>Character Not Found</p>
-			) : (
+			{currentChar ? (
 				<div>
 					<p>Name: {currentChar.name}</p>
 					<p>Level: {currentChar.level}</p>
@@ -101,6 +100,11 @@ function App() {
 					<p>Guild: {currentChar.guild}</p>
 					<p>Last Login: {currentChar.lastLogin}</p>
 					<img src={currentChar.assets.main} alt={`${currentChar.name} profile`} />
+				</div>
+			) : currentCharKey && currentCharKey.error ? (
+				<div>
+					<p>Character Not Found</p>
+					<p>Check Character Spelling and selected Realm</p>
 				</div>
 			) : (
 				''
