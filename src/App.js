@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { retrieveChar, retrieveCharMedia } from './store/session';
+import { retrieveChar } from './store/session';
 
 function App() {
 	const dispatch = useDispatch();
@@ -29,36 +29,26 @@ function App() {
 		authorize();
 	}, []);
 
-	const [ realm, setRealm ] = useState('us');
-	const [ server, setServer ] = useState('zuljin');
+	const [ region, setRegion ] = useState('us');
+	const [ realm, setRealm ] = useState('zuljin');
 	const [ name, setName ] = useState('');
 
 	function charSubmit(e) {
 		e.preventDefault();
-		dispatch(retrieveChar(realm, server, name.toLowerCase(), oAuth));
+		dispatch(retrieveChar(region, realm, name.toLowerCase(), oAuth));
 	}
-
-	useEffect(
-		() => {
-			// If a valid current character exists and its assets have not been fetched
-			if (currentChar && !currentChar.error && !currentChar.assets) {
-				dispatch(retrieveCharMedia(currentChar.media.href, oAuth));
-			}
-		},
-		[ currentChar, oAuth, dispatch ]
-	);
 
 	return (
 		<div>
 			<h1>Blizz Sandbox</h1>
 			<form onSubmit={(e) => charSubmit(e)}>
 				<div className='form-group'>
-					<label htmlFor='realm'>Realm:</label>
-					<input name='realm' type='text' value={realm} onChange={(e) => setRealm(e.target.value)} />
+					<label htmlFor='region'>Region:</label>
+					<input name='region' type='text' value={region} onChange={(e) => setRegion(e.target.value)} />
 				</div>
 				<div className='form-group'>
-					<label htmlFor='Server'>Server:</label>
-					<input name='server' type='text' value={server} onChange={(e) => setServer(e.target.value)} />
+					<label htmlFor='Realm'>Realm:</label>
+					<input name='realm' type='text' value={realm} onChange={(e) => setRealm(e.target.value)} />
 				</div>
 				<div className='form-group'>
 					<label htmlFor='name'>Name:</label>
@@ -72,15 +62,15 @@ function App() {
 				<div>
 					<p>Name: {currentChar.name}</p>
 					<p>Level: {currentChar.level}</p>
-					<p>Faction: {currentChar.faction.name}</p>
-					<p>Gender: {currentChar.gender.name}</p>
-					<p>Race: {currentChar.race.name}</p>
-					<p>Spec: {currentChar.active_spec.name}</p>
-					<p>Class: {currentChar.character_class.name}</p>
-					<p>Equipped Item Level: {currentChar.equipped_item_level}</p>
-					<p>Guild: {currentChar.guild.name}</p>
-					<p>Last Login: {new Date(currentChar.last_login_timestamp).toLocaleString()}</p>
-					{currentChar.assets ? <img src={currentChar.assets.main} alt={`${currentChar.name} profile`} /> : ''}
+					<p>Faction: {currentChar.faction}</p>
+					<p>Gender: {currentChar.gender}</p>
+					<p>Race: {currentChar.race}</p>
+					<p>Spec: {currentChar.spec}</p>
+					<p>Class: {currentChar.class}</p>
+					<p>Equipped Item Level: {currentChar.ilvl}</p>
+					<p>Guild: {currentChar.guild}</p>
+					<p>Last Login: {currentChar.lastLogin}</p>
+					<img src={currentChar.assets.main} alt={`${currentChar.name} profile`} />
 				</div>
 			) : (
 				''
