@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAvailableRealms } from './store/selectors';
 import { fetchChar } from './store/characters';
+import CharacterHistory from './components/CharacterHistory';
 
 function App() {
 	const dispatch = useDispatch();
@@ -109,6 +110,7 @@ function App() {
 			) : (
 				''
 			)}
+			<CharacterHistory />
 		</div>
 	);
 }

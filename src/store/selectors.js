@@ -23,6 +23,20 @@ export function selectCharInfo(region, charData, media) {
 	};
 }
 
+export function selectIndexData(state) {
+	return state.session.charHistory.map((charKey) => {
+		const iteratingChar = state.characters[charKey];
+		return {
+			charKey: charKey,
+			name: iteratingChar.name,
+			avatarHref: iteratingChar.assets.avatar,
+			realm: iteratingChar.realm.name,
+			region: iteratingChar.region,
+			class: iteratingChar.class
+		};
+	});
+}
+
 export function selectAvailableRealms(realmData) {
 	const availableRealms = realmData.realms.map((realm) => {
 		return { name: realm.name, slug: realm.slug };
