@@ -1,7 +1,6 @@
-import { selectCharInfo } from './selectors';
+import { RECEIVE_CHARACTER, SET_CHAR_NOT_FOUND } from './characters';
 
 export const SET_CURRENT_CHAR = 'SET_CURRENT_CHAR';
-export const SET_CHAR_NOT_FOUND = 'SET_CHAR_NOT_FOUND';
 
 export const setCurrentChar = (char) => {
 	return {
@@ -10,33 +9,14 @@ export const setCurrentChar = (char) => {
 	};
 };
 
-export const setCharNotFound = () => {
-	return {
-		type: SET_CHAR_NOT_FOUND
-	};
-};
-
-export const retrieveChar = (region, realm, name, oAuth) => async (dispatch) => {
-	const charRes = await fetch(
-		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}?namespace=profile-${region}&locale=en_US&access_token=${oAuth}`
-	);
-	const charData = await charRes.json();
-	if (charData.detail && charData.detail === 'Not Found') {
-		dispatch(setCharNotFound());
-		return;
-	} else {
-		const mediaRes = await fetch(charData.media.href + '&access_token=' + oAuth);
-		const mediaData = await mediaRes.json();
-		const selectedData = selectCharInfo(region, charData, mediaData);
-		dispatch(setCurrentChar(selectedData));
-		return selectedData;
-	}
-};
-
-export const sessionReducer = (state = { currentChar: null }, action) => {
+export const sessionReducer = (state = { currentChar: null, charHistory: [] }, action) => {
 	switch (action.type) {
 		case SET_CURRENT_CHAR:
 			return { ...state, currentChar: action.char };
+		case RECEIVE_CHARACTER:
+			const filteredHistory = state.charHistory.filter((charKey) => charKey !== action.key);
+			filteredHistory.unshift(action.key);
+			return { ...state, currentChar: action.key, charHistory: filteredHistory };
 		case SET_CHAR_NOT_FOUND:
 			return { ...state, currentChar: { error: 'Character Not Found' } };
 		default:

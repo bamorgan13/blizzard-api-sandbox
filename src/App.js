@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAvailableRealms } from './store/selectors';
-import { retrieveChar } from './store/session';
+import { fetchChar } from './store/characters';
 
 function App() {
 	const dispatch = useDispatch();
-	const currentChar = useSelector((state) => state.session.currentChar);
+	const currentChar = useSelector((state) => state.characters[state.session.currentChar]);
 	const [ oAuth, setOAuth ] = useState();
 	const [ region, setRegion ] = useState('us');
 	const [ realm, setRealm ] = useState('');
@@ -54,7 +54,7 @@ function App() {
 
 	function charSubmit(e) {
 		e.preventDefault();
-		dispatch(retrieveChar(region, realm, name.toLowerCase(), oAuth));
+		dispatch(fetchChar(region, realm, name.toLowerCase(), oAuth));
 	}
 
 	return (
