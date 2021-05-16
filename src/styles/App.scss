@@ -2,17 +2,6 @@
 
 .app {
 	background-color: $darkbackground;
-	& > header {
-		height: 60px;
-		display: flex;
-		justify-content: center;
-	}
-	h1 {
-		color: white;
-		font-size: 32px;
-		text-align: center;
-		margin: auto;
-	}
 }
 .main-content {
 	display: flex;
