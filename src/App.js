@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CharacterDetails from './components/CharacterDetails';
 import CharacterHistory from './components/CharacterHistory';
 import CharacterSearchForm from './components/CharacterSearchForm';
+import Header from './components/Header';
 import { setToken } from './store/session';
 import './styles/App.scss';
 
@@ -37,9 +38,10 @@ function App() {
 
 	return (
 		<div className='app'>
-			<header>
-				<h1>Blizz Sandbox</h1>
-			</header>
+			{/* <header>
+				<h1>Blizz Sandbox - Wowhead Demo</h1>
+			</header> */}
+			<Header />
 			<div className='main-content'>
 				<nav>
 					<CharacterSearchForm />

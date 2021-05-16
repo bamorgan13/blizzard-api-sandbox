@@ -1,0 +1,73 @@
+@import './variables.scss';
+
+.app-header {
+	height: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	h1 {
+		position: absolute;
+		color: white;
+		font-size: 32px;
+		text-align: center;
+	}
+}
+
+.header-links-list {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+}
+
+.header-links-list li {
+	margin: 10px;
+}
+
+.header-links-list-header {
+	color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	cursor: default;
+}
+
+.logo {
+	width: 48px;
+	height: 48px;
+	background-size: contain;
+	transition: 0.3s;
+	cursor: pointer;
+}
+
+.logo.linkedin {
+	background-image: url('../images/logos/linkedin.png');
+}
+
+.logo.linkedin:hover {
+	background-image: url('../images/logos/linkedin-dark.png');
+}
+
+.logo.angellist {
+	background-image: url('../images/logos/angellist.png');
+}
+
+.logo.angellist:hover {
+	background-image: url('../images/logos/angellist-dark.png');
+}
+
+.logo.github {
+	background-image: url('../images/logos/github.png');
+}
+
+.logo.github:hover {
+	background-image: url('../images/logos/github-dark.png');
+}
+
+.logo.email {
+	background-image: url('../images/logos/email.png');
+}
+
+.logo.email:hover {
+	background-image: url('../images/logos/email-dark.png');
+}
