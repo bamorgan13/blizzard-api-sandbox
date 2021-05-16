@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchGear } from '../store/gear';
+import '../styles/GearDetails.scss';
 
 function CharacterGear({ oAuth }) {
 	const dispatch = useDispatch();
@@ -17,18 +18,25 @@ function CharacterGear({ oAuth }) {
 		[ dispatch, oAuth, currentChar, charGear ]
 	);
 
-	return charGear
-		? Object.entries(charGear).map(([ slot, data ]) => {
-				return (
-					<p key={slot}>
-						{slot}:{' '}
-						<a href={`https://www.wowhead.com/item=${data.id}&ilvl=${data.ilvl}`} className={data.quality}>
-							{`${data.name} (${data.ilvl})`}
-						</a>
-					</p>
-				);
-			})
-		: '';
+	return (
+		<div className='gear-details'>
+			<header>Gear Details</header>
+			{charGear ? (
+				Object.entries(charGear).map(([ slot, data ]) => {
+					return (
+						<p key={slot}>
+							{slot}:{' '}
+							<a href={`https://www.wowhead.com/item=${data.id}&ilvl=${data.ilvl}`} className={data.quality}>
+								{`${data.name} (${data.ilvl})`}
+							</a>
+						</p>
+					);
+				})
+			) : (
+				<p>Fetching Gear...</p>
+			)}
+		</div>
+	);
 }
 
 export default CharacterGear;

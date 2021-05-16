@@ -34,6 +34,8 @@ form {
 	background-color: $lightbackground;
 	padding: 5px;
 	margin: 5px 0;
+	box-shadow: inset 0px 0px 2px white;
+	border-radius: 2px;
 
 	label {
 		color: white;

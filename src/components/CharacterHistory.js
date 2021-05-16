@@ -15,7 +15,7 @@ function CharacterHistory() {
 					<li key={char.charKey} className='char-history-list-item'>
 						<button onClick={() => dispatch(setCurrentChar(char.charKey))}>
 							<img src={char.avatarHref} alt={`${char.name} avatar`} />
-							<div>
+							<div className='index-details'>
 								<p className={char.class}>
 									{char.name} - {char.class}
 								</p>
