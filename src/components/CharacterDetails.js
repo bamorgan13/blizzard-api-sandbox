@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import '../styles/CharacterDetails.scss';
 import CharacterGear from './CharacterGear';
+import Welcome from './Welcome';
 
 function CharacterDetails() {
 	const currentCharKey = useSelector((state) => state.session.currentChar);
@@ -25,7 +26,7 @@ function CharacterDetails() {
 				</div>
 				<CharacterGear />
 			</div>
-			<img src={currentChar.assets.main} alt={`${currentChar.name} profile`} />
+			<img className='character-model' src={currentChar.assets.main} alt={`${currentChar.name} profile`} />
 		</div>
 	) : currentCharKey && currentCharKey.error ? (
 		<div className='details-container none'>
@@ -33,9 +34,8 @@ function CharacterDetails() {
 			<p>Check character spelling and selected Realm</p>
 		</div>
 	) : (
-		<div className='details-container none'>
-			<p>Use the form on the left to search for a character</p>
-			<p>Retrieving a character will display detailed information in this space</p>
+		<div className='details-container'>
+			<Welcome />
 		</div>
 	);
 }
