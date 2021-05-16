@@ -12,6 +12,7 @@ function CharacterGear() {
 
 	useEffect(
 		() => {
+			// Prevents refetching of gear if already present in Redux store
 			if (!charGear) {
 				dispatch(fetchGear(currentChar.region, currentChar.realm.slug, currentChar.name.toLowerCase(), oAuth));
 			}

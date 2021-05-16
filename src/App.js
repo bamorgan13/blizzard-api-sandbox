@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import CharacterDetails from './components/CharacterDetails';
 import CharacterHistory from './components/CharacterHistory';
 import CharacterSearchForm from './components/CharacterSearchForm';
@@ -9,7 +9,6 @@ import './styles/App.scss';
 
 function App() {
 	const dispatch = useDispatch();
-	const oAuth = useSelector((state) => state.session.oAuth);
 
 	// Retrieve oAuth access token on initial app load
 	useEffect(
@@ -38,16 +37,13 @@ function App() {
 
 	return (
 		<div className='app'>
-			{/* <header>
-				<h1>Blizz Sandbox - Wowhead Demo</h1>
-			</header> */}
 			<Header />
 			<div className='main-content'>
 				<nav>
 					<CharacterSearchForm />
 					<CharacterHistory />
 				</nav>
-				<CharacterDetails oAuth={oAuth} />
+				<CharacterDetails />
 			</div>
 		</div>
 	);

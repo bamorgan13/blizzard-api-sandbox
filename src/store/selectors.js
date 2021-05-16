@@ -1,3 +1,4 @@
+// Strips the large character and media objects down to data that will be used by the app
 export function selectCharInfo(region, charData, media) {
 	const assets = {};
 	media.assets.forEach((asset) => {
@@ -23,6 +24,8 @@ export function selectCharInfo(region, charData, media) {
 	};
 }
 
+// Returns an array of simplified character data for each item in charHistory
+// The simplified data is used to make history buttons in CharacterHistory component
 export function selectIndexData(state) {
 	return state.session.charHistory.map((charKey) => {
 		const iteratingChar = state.characters[charKey];
@@ -37,6 +40,7 @@ export function selectIndexData(state) {
 	});
 }
 
+// Strips the large object of gear data to only that which will be used by the app
 export function selectGearData(body) {
 	const gearData = {};
 	body.equipped_items.forEach((item) => {
@@ -50,6 +54,7 @@ export function selectGearData(body) {
 	return gearData;
 }
 
+// Strips realm data object to dev-friendly array of objects representing the name and slug
 export function selectAvailableRealms(realmData) {
 	const availableRealms = realmData.realms.map((realm) => {
 		return { name: realm.name, slug: realm.slug };

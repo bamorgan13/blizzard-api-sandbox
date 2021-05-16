@@ -4,6 +4,8 @@ import { selectIndexData } from '../store/selectors';
 import { setCurrentChar } from '../store/session';
 import '../styles/CharacterHistory.scss';
 
+// CharacterHistory creates buttons for each previously viewed character,
+// allowing for easily displaying cached content without requiring a refetch
 function CharacterHistory() {
 	const dispatch = useDispatch();
 	const previousChars = useSelector((state) => selectIndexData(state));

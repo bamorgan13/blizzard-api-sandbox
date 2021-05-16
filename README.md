@@ -1,64 +1,102 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Blizzard API Sandbox
 
-## Available Scripts
+The [Blizzard API Sandbox](https://blizzard-api-sandbox.herokuapp.com/ "Blizzard API Sandbox Live Site") is a quick demonstration of front-end web development, interfacing with the Blizzard API as well as incorporating Wowhead tooltips.
 
-In the project directory, you can run:
+![](documentation/character_detail_example.png)
 
-### `yarn start`
+### Functionality
+The app is currently able to
+* Fetch realm data based off of selected region
+* Fetch basic character information, such as level, class, avatar, etc.
+* Display currently equiped gear, with Wowhead tooltips for each piece
+* Cache previously retrieced character and equipment data to prevent unnecessary requests
+* Display history of viewed characters to aid in caching demonstration
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Architecture and Technologies
+* React is used to render HTML, utilizing hooks to maintain completely functional components
+* Redux caches character data so in a systematically organized fashion for ease of lookup and reduced calls to the Blizzard API
+* Node-sass enables the use of `.scss` files for more powerful CSS creation
+* ReactTooltip implements a quick and easy tooltip for links to my personal webpages
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Interesting Code Segments
+The fetching of character data is particularly interesting because it goes through multiple checks, fetching from multiple Blizzard API endpoints, a stripping of unnecessary data, and a systematic storing of this data by dynamically generating a character-specific key. 
+```js
+// store/characters.js
 
-### `yarn test`
+// Fetches character data and media (images) from Blizzard API
+export const fetchChar = (region, realm, name, oAuth) => async (dispatch) => {
+	// If the user did not submit either a realm or a region, do not attempt a fetch
+	// Dispatch that the character was not found to indicate a review is needed
+	if (!(realm && name)) {
+		dispatch(setCharNotFound());
+		return;
+	}
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+	const charRes = await fetch(
+		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}?namespace=profile-${region}&locale=en_US&access_token=${oAuth}`
+	);
+	const charData = await charRes.json();
 
-### `yarn build`
+	// After the fetch, if Blizzard responds with an error, indicate it was not found
+	if (charData.detail && charData.detail === 'Not Found') {
+		dispatch(setCharNotFound());
+		return;
+	} else {
+		// Only upon successfully fetching a character do we then attempt to fetch media
+		// The request is made with the href provided in the initial fetch
+		const mediaRes = await fetch(charData.media.href + '&access_token=' + oAuth);
+		const mediaData = await mediaRes.json();
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+		// Data from both fetches is compounded before being dispatched to Redux
+		const selectedData = selectCharInfo(region, charData, mediaData);
+		// A unique character key is generated combining the region, realm, and name
+		// This is used in multiple slices of the Redux store to retrieve cached data
+		const charKey = `${region}_${realm}_${name}`;
+		dispatch(receiveChar(charKey, selectedData));
+		return selectedData;
+	}
+};
+```
+The helper that makes this particularly useful is the `selectCharInfo` function. This is the selector that converts the giant data objects received from the Blizzard API into a streamlined object containing only the data that we need in the app. It's also useful in that it combines the data from both fetches into one object so that the media data does not need to be stored in a separate location.
+```js
+// store/selectors.js
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+// Strips the large character and media objects down to data that will be used by the app
+export function selectCharInfo(region, charData, media) {
+	const assets = {};
+	media.assets.forEach((asset) => {
+		assets[asset.key] = asset.value;
+	});
+	return {
+		name: charData.name,
+		region,
+		realm: {
+			name: charData.realm.name,
+			slug: charData.realm.slug
+		},
+		level: charData.level,
+		faction: charData.faction.name,
+		gender: charData.gender.name,
+		race: charData.race.name,
+		spec: charData.active_spec.name,
+		class: charData.character_class.name,
+		ilvl: charData.equipped_item_level,
+		guild: charData.guild.name,
+		lastLogin: new Date(charData.last_login_timestamp).toLocaleString(),
+		assets
+	};
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Future Development
+Future plans for the app include displaying such data as
+* Character raid progression
+* Character dungeon and Mythic+ data
+* Collection information, such as pets and mounts
+Developing a simple backend is a possibility as well. It would allow the app to
+* Have users log in to store their history
+* Implement OAuth with Blizzard and automatically pull character data
+* Move basic client authorization to the backend to secure client secret
+* Store favorite searches
+* and much more!
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
