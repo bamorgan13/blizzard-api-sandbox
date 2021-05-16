@@ -18,8 +18,8 @@ function Header() {
 					</a>
 				</li>
 				<li>
-					<a href='https://angel.co/bryce-morgan-1'>
-						<div className='logo angellist' alt='angellist' />
+					<a href='https://www.brycemorgan.dev/'>
+						<div className='logo laptop' alt='laptop' />
 					</a>
 				</li>
 				<li>
