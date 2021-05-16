@@ -15,7 +15,6 @@ export const fetchGear = (region, realm, name, oAuth) => async (dispatch) => {
 		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}/equipment?namespace=profile-${region}&locale=en_US&access_token=${oAuth}`
 	);
 	const gearData = await gearRes.json();
-	console.log(gearData);
 	const selectedData = selectGearData(gearData);
 
 	dispatch(receiveGear(`${region}_${realm}_${name}`, selectedData));
