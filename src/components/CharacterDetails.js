@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import '../styles/CharacterDetails.scss';
 import CharacterGear from './CharacterGear';
 
-function CharacterDetails({ oAuth }) {
+function CharacterDetails() {
 	const currentCharKey = useSelector((state) => state.session.currentChar);
 	const currentChar = useSelector((state) => state.characters[currentCharKey]);
 
@@ -23,7 +23,7 @@ function CharacterDetails({ oAuth }) {
 					<p>Guild: {currentChar.guild}</p>
 					<p>Last Login: {currentChar.lastLogin}</p>
 				</div>
-				<CharacterGear oAuth={oAuth} />
+				<CharacterGear />
 			</div>
 			<img src={currentChar.assets.main} alt={`${currentChar.name} profile`} />
 		</div>

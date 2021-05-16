@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectAvailableRealms } from '../store/selectors';
 import { fetchChar } from '../store/characters';
 import '../styles/CharacterSearchForm.scss';
 
-function CharacterSearchForm({ oAuth }) {
+function CharacterSearchForm() {
 	const dispatch = useDispatch();
+	const oAuth = useSelector((state) => state.session.oAuth);
 
 	const [ region, setRegion ] = useState('us');
 	const [ realm, setRealm ] = useState('');

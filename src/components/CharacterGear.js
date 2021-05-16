@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchGear } from '../store/gear';
 import '../styles/GearDetails.scss';
 
-function CharacterGear({ oAuth }) {
+function CharacterGear() {
 	const dispatch = useDispatch();
 	const currentCharKey = useSelector((state) => state.session.currentChar);
 	const currentChar = useSelector((state) => state.characters[currentCharKey]);
 	const charGear = useSelector((state) => state.gear[currentCharKey]);
+	const oAuth = useSelector((state) => state.session.oAuth);
 
 	useEffect(
 		() => {
