@@ -37,6 +37,19 @@ export function selectIndexData(state) {
 	});
 }
 
+export function selectGearData(body) {
+	const gearData = {};
+	body.equipped_items.forEach((item) => {
+		gearData[item.slot.name] = {
+			id: item.item.id,
+			ilvl: item.level.value,
+			name: item.name,
+			quality: item.quality.name
+		};
+	});
+	return gearData;
+}
+
 export function selectAvailableRealms(realmData) {
 	const availableRealms = realmData.realms.map((realm) => {
 		return { name: realm.name, slug: realm.slug };

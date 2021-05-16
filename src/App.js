@@ -39,7 +39,7 @@ function App() {
 					<CharacterSearchForm oAuth={oAuth} />
 					<CharacterHistory />
 				</nav>
-				<CharacterDetails />
+				<CharacterDetails oAuth={oAuth} />
 			</div>
 		</div>
 	);

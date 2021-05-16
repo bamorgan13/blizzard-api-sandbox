@@ -1,12 +1,14 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { characterReducer } from './characters';
+import { gearReducer } from './gear';
 
 import { sessionReducer } from './session';
 
 const rootReducer = combineReducers({
 	session: sessionReducer,
-	characters: characterReducer
+	characters: characterReducer,
+	gear: gearReducer
 });
 
 let enhancer;
