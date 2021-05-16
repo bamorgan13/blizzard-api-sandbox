@@ -22,7 +22,7 @@ function CharacterGear({ oAuth }) {
 				return (
 					<p key={slot}>
 						{slot}:{' '}
-						<a href='#' data-wowhead={`item=${data.id}&ilvl=${data.ilvl}`} className={data.quality}>
+						<a href={`https://www.wowhead.com/item=${data.id}&ilvl=${data.ilvl}`} className={data.quality}>
 							{`${data.name} (${data.ilvl})`}
 						</a>
 					</p>

@@ -64,3 +64,31 @@ body {
 .Warrior {
 	font-weight: bold;
 }
+
+.Poor {
+	color: $poor;
+}
+.Common {
+	color: $common;
+}
+.Uncommon {
+	color: $uncommon;
+}
+.Rare {
+	color: $rare;
+}
+.Epic {
+	color: $epic;
+}
+.Legendary {
+	color: $legendary;
+}
+.Artifact {
+	color: $artifact;
+}
+.Heirloom {
+	color: $heirloom;
+}
+.WoW.Token {
+	color: $wowtoken;
+}
