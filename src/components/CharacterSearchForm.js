@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectAvailableRealms } from '../store/selectors';
 import { fetchChar } from '../store/characters';
 import '../styles/CharacterSearchForm.scss';
+import { setCurrentChar } from '../store/session';
 
 function CharacterSearchForm() {
 	const dispatch = useDispatch();
@@ -33,7 +34,11 @@ function CharacterSearchForm() {
 
 	function charSubmit(e) {
 		e.preventDefault();
-		dispatch(fetchChar(region, realm, name.toLowerCase(), oAuth));
+		if (name.toLowerCase() === 'bryce morgan') {
+			dispatch(setCurrentChar('bryce_morgan'));
+		} else {
+			dispatch(fetchChar(region, realm, name.toLowerCase(), oAuth));
+		}
 	}
 
 	return (
@@ -62,7 +67,7 @@ function CharacterSearchForm() {
 				<input
 					name='name'
 					type='text'
-					placeholder='Enter Character Name'
+					placeholder='Character Name (or try "Bryce Morgan")'
 					value={name}
 					onChange={(e) => setName(e.target.value)}
 				/>

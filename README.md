@@ -89,10 +89,11 @@ export function selectCharInfo(region, charData, media) {
 ```
 
 ### Future Development
-Future plans for the app include displaying such data as
-* Character raid progression
-* Character dungeon and Mythic+ data
-* Collection information, such as pets and mounts
+Future plans for the app include
+* Ensuring responsive design at all screen sizes
+* Displaying character raid progression
+* Displaying character dungeon and Mythic+ data
+* Displaying collection information, such as pets and mounts
 Developing a simple backend is a possibility as well. It would allow the app to
 * Have users log in to store their history
 * Implement OAuth with Blizzard and automatically pull character data
