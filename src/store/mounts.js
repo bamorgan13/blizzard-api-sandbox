@@ -1,5 +1,5 @@
 import { selectCharMountData, selectMountDetails } from './selectors';
-import { fetchRetry, sleep } from '../utility.js';
+import { fetchRetry } from '../utility.js';
 
 export const RECEIVE_CHAR_MOUNTS = 'RECEIVE_CHAR_MOUNTS';
 export const RECEIVE_MOUNT_DETAILS = 'RECEIVE_MOUNT_DETAILS';
@@ -22,10 +22,10 @@ export const receiveMountDetails = (data) => {
 // Fetches which mounts a character owns from Blizzard API
 export const fetchMounts = (region, realm, name, oAuth) => async (dispatch) => {
 	// fetchRetry attempts a refetch after a delay if we do not receive an ok response
-	const mountRes = await fetchRetry(
+	const mountData = await fetchRetry(
 		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}/collections/mounts?namespace=profile-${region}&locale=en_US&access_token=${oAuth}`
 	);
-	const mountData = await mountRes.json();
+	// const mountData = await mountRes.json();
 	const selectedData = selectCharMountData(mountData);
 
 	// A unique character key is generated combining the region, realm, and name
@@ -47,16 +47,16 @@ export const fetchMountData = (id, oAuth) => async (dispatch) => {
 	// fetchRetry attempts a refetch after a delay if we do not receive an ok response
 	// This is implemented since the large number of mounts often triggers a 'Too Many Requests'
 	// response from the Blizzard API.
-	const mountRes = await fetchRetry(
+	const mountData = await fetchRetry(
 		`https://us.api.blizzard.com/data/wow/mount/${id}?namespace=static-us&locale=en_US&access_token=${oAuth}`
 	);
-	const mountData = await mountRes.json();
+	// const mountData = await mountRes.json();
 
-	const mediaRes = await fetchRetry(
+	const mediaData = await fetchRetry(
 		`https://us.api.blizzard.com/data/wow/media/creature-display/${mountData.creature_displays[0]
 			.id}?namespace=static-us&locale=en_US&access_token=${oAuth}`
 	);
-	const mediaData = await mediaRes.json();
+	// const mediaData = await mediaRes.json();
 	const selectedData = await selectMountDetails(mountData, mediaData);
 
 	dispatch(receiveMountDetails(selectedData));

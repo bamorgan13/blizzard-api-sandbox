@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import { petReducer } from './pets';
 import { characterReducer } from './characters';
 import { gearReducer } from './gear';
 import { mountReducer } from './mounts';
@@ -10,7 +11,8 @@ const rootReducer = combineReducers({
 	session: sessionReducer,
 	characters: characterReducer,
 	gear: gearReducer,
-	mounts: mountReducer
+	mounts: mountReducer,
+	pets: petReducer
 });
 
 let enhancer;

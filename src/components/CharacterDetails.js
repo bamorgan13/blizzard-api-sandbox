@@ -4,6 +4,7 @@ import '../styles/CharacterDetails.scss';
 import CharacterBasics from './CharacterBasics';
 import CharacterGear from './CharacterGear';
 import CharacterMounts from './CharacterMounts';
+import CharacterPets from './CharacterPets';
 import Welcome from './Welcome';
 
 function CharacterDetails() {
@@ -13,7 +14,8 @@ function CharacterDetails() {
 
 	const activeDetailMapping = {
 		gear: <CharacterGear />,
-		mounts: <CharacterMounts />
+		mounts: <CharacterMounts />,
+		pets: <CharacterPets />
 	};
 
 	// If a character has been fetched display its data
@@ -35,6 +37,12 @@ function CharacterDetails() {
 						className={activeDetail === 'mounts' ? 'detail-select active' : 'detail-select'}
 					>
 						Display Mounts
+					</button>
+					<button
+						onClick={() => setActiveDetail('pets')}
+						className={activeDetail === 'pets' ? 'detail-select active' : 'detail-select'}
+					>
+						Display Pets
 					</button>
 				</nav>
 				{activeDetailMapping[activeDetail]}
