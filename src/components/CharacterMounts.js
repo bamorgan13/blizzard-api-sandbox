@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMounts } from '../store/mounts';
 import MountIndexItem from './MountIndexItem';
@@ -10,6 +10,7 @@ function CharacterMounts() {
 	const currentChar = useSelector((state) => state.characters[currentCharKey]);
 	const charMounts = useSelector((state) => state.mounts[currentCharKey]);
 	const oAuth = useSelector((state) => state.session.oAuth);
+	const [filteredName, setFilteredName] = useState('');
 
 	useEffect(
 		() => {
@@ -21,14 +22,18 @@ function CharacterMounts() {
 		[ dispatch, oAuth, currentChar, charMounts ]
 	);
 
+	// If a user has submitted content in the textbox, filter mounts by names that include that content
+	const filteredMounts = filteredName.length ? charMounts.filter(mount => mount.name.toLowerCase().includes(filteredName.toLowerCase())) : charMounts;
+
 	return (
 		<div className='mount-details'>
 			<header>Mount Details</header>
 			{charMounts ? (
 				<>
 				<p>{`Total Mounts: ${charMounts.length}`}</p>
+				<input type='text' value={filteredName} placeholder="Filter by name" onChange={(e) => setFilteredName(e.target.value)}/>
 				<ul>
-					{charMounts.map((mount) => {
+					{filteredMounts.map((mount) => {
 						return <MountIndexItem key={mount.id} mount={mount} />;
 					})}
 				</ul>
