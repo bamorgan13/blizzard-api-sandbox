@@ -68,7 +68,7 @@ export function selectCharMountData(body) {
 
 // Strips the large object of mount data to only that which will be used by the app
 export async function selectMountDetails(body, oAuth) {
-	await sleep(100);
+	await sleep(150);
 	const mediaRes = await fetch(`${body.creature_displays[0].key.href}&locale=en_US&access_token=${oAuth}`);
 	const mediaParsed = await mediaRes.json();
 	const avatar = mediaParsed.assets[0].value;

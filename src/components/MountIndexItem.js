@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchMountData } from '../store/mounts.js';
 import '../styles/MountIndexItem.scss';
 
-function MountIndexItem({ mount: { id, href } }) {
+function MountIndexItem({ mount: { id, name, href } }) {
 	const dispatch = useDispatch();
 	const oAuth = useSelector((state) => state.session.oAuth);
 	const mount = useSelector((state) => state.mounts[id]);
@@ -18,14 +18,20 @@ function MountIndexItem({ mount: { id, href } }) {
 	);
 
 	return mount ? (
-		<div className={`mount-detail ${mount.faction}`}>
-			<img src={mount.media.href} alt={mount.name} className='mount-img' />
+		<li className='mount-index-item'>
 			<a href={`https://www.wowhead.com/mount/${mount.id}`} className='mount-link'>
-				{mount.name}
+				<div className='mount-shadow'>
+					<img src={mount.media.href} alt={mount.name} className='mount-img' />
+					<p className='mount-name'>{mount.name}</p>
+				</div>
 			</a>
-		</div>
+		</li>
 	) : (
-		<p>"Fetching Mount...</p>
+		<li className='mount-index-item'>
+			<a href={`https://www.wowhead.com/mount/${id}`} className='mount-link'>
+				<p className='mount-name'>{name}</p>
+			</a>
+		</li>
 	);
 }
 

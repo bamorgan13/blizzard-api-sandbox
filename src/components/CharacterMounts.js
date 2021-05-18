@@ -25,9 +25,11 @@ function CharacterMounts() {
 		<div className='mount-details'>
 			<header>Mount Details</header>
 			{charMounts ? (
-				charMounts.map((mount) => {
-					return <MountIndexItem key={mount.id} mount={mount} />;
-				})
+				<ul>
+					{charMounts.map((mount) => {
+						return <MountIndexItem key={mount.id} mount={mount} />;
+					})}
+				</ul>
 			) : (
 				<p>Fetching Mounts...</p>
 			)}
