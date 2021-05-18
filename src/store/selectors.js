@@ -54,6 +54,29 @@ export function selectGearData(body) {
 	return gearData;
 }
 
+// Strips the large object of mount data to only that which will be used by the app
+export function selectCharMountData(body) {
+	return body.mounts.map(({ mount, is_useable }) => ({
+		id: mount.id,
+		name: mount.name,
+		is_useable
+	}));
+}
+
+//  Strips, reformats, and combines mount details and media to relevent data
+export async function selectMountDetails(mountData, mediaData) {
+	return {
+		id: mountData.id,
+		name: mountData.name,
+		description: mountData.description,
+		faction: mountData.faction ? mountData.faction.name : 'NoFaction',
+		media: {
+			id: mountData.creature_displays[0].id,
+			href: mediaData.assets[0].value
+		}
+	};
+}
+
 // Strips realm data object to dev-friendly array of objects representing the name and slug
 export function selectAvailableRealms(realmData) {
 	const availableRealms = realmData.realms.map((realm) => {

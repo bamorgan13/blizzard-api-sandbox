@@ -52,4 +52,19 @@ export const defaultChar = {
 	}
 };
 
-export const defaultStore = { characters: defaultChar, gear: defaultGear };
+export const defaultMounts = {
+	bryce_morgan: [
+		{
+			id: 1039,
+			name: 'Mighty Caravan Brutosaur',
+			is_useable: true
+		},
+		{
+			id: 1442,
+			name: 'Corridor Creeper',
+			is_useable: true
+		}
+	]
+};
+
+export const defaultStore = { characters: defaultChar, gear: defaultGear, mounts: defaultMounts };

@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import '../styles/CharacterDetails.scss';
 import CharacterBasics from './CharacterBasics';
 import CharacterGear from './CharacterGear';
+import CharacterMounts from './CharacterMounts';
 import Welcome from './Welcome';
 
 function CharacterDetails() {
 	const currentCharKey = useSelector((state) => state.session.currentChar);
 	const currentChar = useSelector((state) => state.characters[currentCharKey]);
+	const [ activeDetail, setActiveDetail ] = useState('gear');
+
+	const activeDetailMapping = {
+		gear: <CharacterGear />,
+		mounts: <CharacterMounts />
+	};
 
 	// If a character has been fetched display its data
 	// If an error occurred fetching a character, display the alert
@@ -16,7 +23,21 @@ function CharacterDetails() {
 		<div className='details-container'>
 			<div className='details-data'>
 				<CharacterBasics />
-				<CharacterGear />
+				<nav className='detail-select-nav'>
+					<button
+						onClick={() => setActiveDetail('gear')}
+						className={activeDetail === 'gear' ? 'detail-select active' : 'detail-select'}
+					>
+						Display Gear
+					</button>
+					<button
+						onClick={() => setActiveDetail('mounts')}
+						className={activeDetail === 'mounts' ? 'detail-select active' : 'detail-select'}
+					>
+						Display Mounts
+					</button>
+				</nav>
+				{activeDetailMapping[activeDetail]}
 			</div>
 			<img className='character-model' src={currentChar.assets.main} alt={`${currentChar.name} profile`} />
 		</div>
