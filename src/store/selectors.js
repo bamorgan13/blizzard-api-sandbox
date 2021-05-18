@@ -1,3 +1,5 @@
+import { sleep } from '../utility.js';
+
 // Strips the large character and media objects down to data that will be used by the app
 export function selectCharInfo(region, charData, media) {
 	const assets = {};
@@ -52,6 +54,35 @@ export function selectGearData(body) {
 		};
 	});
 	return gearData;
+}
+
+// Strips the large object of mount data to only that which will be used by the app
+export function selectCharMountData(body) {
+	return body.mounts.map(({ mount, is_useable }) => ({
+		id: mount.id,
+		name: mount.name,
+		href: mount.key.href,
+		is_useable
+	}));
+}
+
+// Strips the large object of mount data to only that which will be used by the app
+export async function selectMountDetails(body, oAuth) {
+	await sleep(100);
+	const mediaRes = await fetch(`${body.creature_displays[0].key.href}&locale=en_US&access_token=${oAuth}`);
+	const mediaParsed = await mediaRes.json();
+	const avatar = mediaParsed.assets[0].value;
+
+	return {
+		id: body.id,
+		name: body.name,
+		description: body.description,
+		faction: body.faction ? body.faction.name : 'No Faction',
+		media: {
+			id: body.creature_displays[0].id,
+			href: avatar
+		}
+	};
 }
 
 // Strips realm data object to dev-friendly array of objects representing the name and slug

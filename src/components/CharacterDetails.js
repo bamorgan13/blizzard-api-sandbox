@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import '../styles/CharacterDetails.scss';
 import CharacterBasics from './CharacterBasics';
 import CharacterGear from './CharacterGear';
+import CharacterMounts from './CharacterMounts';
 import Welcome from './Welcome';
 
 function CharacterDetails() {
@@ -17,6 +18,7 @@ function CharacterDetails() {
 			<div className='details-data'>
 				<CharacterBasics />
 				<CharacterGear />
+				<CharacterMounts />
 			</div>
 			<img className='character-model' src={currentChar.assets.main} alt={`${currentChar.name} profile`} />
 		</div>
