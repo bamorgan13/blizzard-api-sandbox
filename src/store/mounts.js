@@ -1,5 +1,5 @@
 import { selectCharMountData, selectMountDetails } from './selectors';
-import { sleep } from '../utility.js';
+import { fetchRetry, sleep } from '../utility.js';
 
 export const RECEIVE_CHAR_MOUNTS = 'RECEIVE_CHAR_MOUNTS';
 export const RECEIVE_MOUNT_DETAILS = 'RECEIVE_MOUNT_DETAILS';
@@ -21,7 +21,8 @@ export const receiveMountDetails = (data) => {
 
 // Fetches which mounts a character owns from Blizzard API
 export const fetchMounts = (region, realm, name, oAuth) => async (dispatch) => {
-	const mountRes = await fetch(
+	// fetchRetry attempts a refetch after a delay if we do not receive an ok response
+	const mountRes = await fetchRetry(
 		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}/collections/mounts?namespace=profile-${region}&locale=en_US&access_token=${oAuth}`
 	);
 	const mountData = await mountRes.json();
@@ -43,15 +44,15 @@ export const fetchMountData = (id, oAuth) => async (dispatch) => {
 	// from the Blizzard API.
 	// Here we construct our own request with the generic 'static-' namespace so that
 	// data can be fetched on characters that have not recently logged in.
-	const mountRes = await fetch(
+	// fetchRetry attempts a refetch after a delay if we do not receive an ok response
+	// This is implemented since the large number of mounts often triggers a 'Too Many Requests'
+	// response from the Blizzard API.
+	const mountRes = await fetchRetry(
 		`https://us.api.blizzard.com/data/wow/mount/${id}?namespace=static-us&locale=en_US&access_token=${oAuth}`
 	);
 	const mountData = await mountRes.json();
 
-	// A sleep is implemented to avoid timing out from too many requests to the Blizzard API
-	await sleep(100);
-
-	const mediaRes = await fetch(
+	const mediaRes = await fetchRetry(
 		`https://us.api.blizzard.com/data/wow/media/creature-display/${mountData.creature_displays[0]
 			.id}?namespace=static-us&locale=en_US&access_token=${oAuth}`
 	);
