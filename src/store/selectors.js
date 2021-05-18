@@ -18,7 +18,7 @@ export function selectCharInfo(region, charData, media) {
 		spec: charData.active_spec.name,
 		class: charData.character_class.name,
 		ilvl: charData.equipped_item_level,
-		guild: charData.guild.name,
+		guild: charData.guild ? charData.guild.name : 'No Guild',
 		lastLogin: new Date(charData.last_login_timestamp).toLocaleString(),
 		assets
 	};
