@@ -27,9 +27,9 @@ function Welcome() {
 			<div className='future'>
 				<p>Future plans for the app include displaying such data as:</p>
 				<ul className='future-capabilities'>
+					<li className='completed'>Collection information, such as pets and mounts (Completed! 5/18)</li>
 					<li>Character raid progression</li>
 					<li>Character dungeon and mythic+ data</li>
-					<li>Collection information, such as pets and mounts</li>
 				</ul>
 			</div>
 
