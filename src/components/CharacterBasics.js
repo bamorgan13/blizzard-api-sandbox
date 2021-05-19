@@ -14,7 +14,7 @@ function CharacterBasics() {
 				<b>Level:</b> {currentChar.level}
 			</p>
 			<p>
-				<b>Faction:</b> {currentChar.faction}
+				<b>Faction:</b> <span className={currentChar.faction}>{currentChar.faction}</span>
 			</p>
 			<p>
 				<b>Gender:</b> {currentChar.gender}
@@ -23,13 +23,16 @@ function CharacterBasics() {
 				<b>Race:</b> {currentChar.race}
 			</p>
 			<p>
-				<b>Spec:</b> {currentChar.spec}
+				<b>Spec:</b> <span className={currentChar.class}>{currentChar.spec}</span>
 			</p>
 			<p>
-				<b>Class:</b> {currentChar.class}
+				<b>Class:</b> <span className={currentChar.class}>{currentChar.class}</span>
 			</p>
 			<p>
-				<b>Equipped Item Level:</b> {currentChar.ilvl}
+				<b>Equipped Item Level:</b>{' '}
+				<span className={currentChar.ilvl > 158 ? currentChar.ilvl > 183 ? 'Epic' : 'Rare' : 'Uncommon'}>
+					{currentChar.ilvl}
+				</span>
 			</p>
 			<p>
 				<b>Guild:</b> {currentChar.guild}
