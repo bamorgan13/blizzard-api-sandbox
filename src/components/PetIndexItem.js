@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPetData } from '../store/pets.js';
@@ -25,6 +27,7 @@ function PetIndexItem({ pet: { speciesId, speciesName, nickname, level, quality,
 		<li className='index-item border'>
 			<a href={`https://www.wowhead.com/battle-pet/${speciesId}`} className='index-link'>
 				<div className='index-shadow'>
+					{isFavorite && <FontAwesomeIcon className='favorite-star' icon={faStar} />}
 					{pet && <img src={pet.media.href || pet.media.icon} alt={speciesName} className='index-img pet' />}
 					<div className='index-data-details'>
 						<p className={`index-name ${quality}`}>{`${nickname || speciesName}`}</p>
