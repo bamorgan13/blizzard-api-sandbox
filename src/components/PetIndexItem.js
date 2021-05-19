@@ -17,23 +17,19 @@ function PetIndexItem({ pet: { speciesId, speciesName, nickname, level, quality,
 		[ pet, speciesId, oAuth, dispatch, creatureDisplayId ]
 	);
 
-	// The pet represents the fully populated data after the fetch for details
-	// If this isn't present, we can use the basic pet name and id from props,
-	// but no media will be shown.
-	return pet ? (
+	// If we've fetched the additional pet data, we can show the media, otherwise
+	// we use only have the basic data passed from props.
+	// Some pets' creature models don't return images, so we default to the icon
+	// if this failure occurs
+	return (
 		<li className='pet-index-item'>
 			<a href={`https://www.wowhead.com/battle-pet/${speciesId}`} className='pet-link'>
 				<div className='pet-shadow'>
-					<img src={pet.media.href || pet.media.icon} alt={speciesName} className='pet-img' />
-					<p className={`pet-name ${quality}`}>{`${nickname || speciesName} - lvl ${level} ${speciesName}`}</p>
-				</div>
-			</a>
-		</li>
-	) : (
-		<li className='pet-index-item'>
-			<a href={`https://www.wowhead.com/battle-pet/${speciesId}`} className='pet-link'>
-				<div className='pet-shadow'>
-					<p className={`pet-name ${quality}`}>{`${nickname || speciesName} - lvl ${level} ${speciesName}`}</p>
+					{pet && <img src={pet.media.href || pet.media.icon} alt={speciesName} className='pet-img' />}
+					<div className='pet-data-details'>
+						<p className={`pet-name ${quality}`}>{`${nickname || speciesName}`}</p>
+						<p className={`pet-name ${quality}`}>{`${speciesName} - lvl ${level}`}</p>
+					</div>
 				</div>
 			</a>
 		</li>

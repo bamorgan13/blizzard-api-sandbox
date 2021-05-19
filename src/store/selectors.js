@@ -91,7 +91,10 @@ export function selectCharPetData(body) {
 	}));
 }
 
-// Strips and reformats pet details to relevent data
+// Strips, reformats, and combines pet details and media to relevent data
+// A defaultPet is created due to some requests for character pets results in 404s
+// from Blizzard API. If that data doesn't exist we still want to have the keys
+// present in our returned object.
 export async function selectPetDetails(petData, mediaData) {
 	let selected = { ...defaultPet };
 	if (petData) {

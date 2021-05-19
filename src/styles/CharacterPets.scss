@@ -27,8 +27,26 @@
 		padding-left: 5px;
 	}
 
+	.filter-label {
+		display: flex;
+
+		input {
+			width: min-content;
+			margin-left: 5px;
+			cursor: pointer;
+		}
+	}
+
+	.quality-options-container {
+		display: flex;
+		label {
+			margin-right: 5px;
+		}
+	}
+
 	ul {
-		height: calc(100% - 77px);
+		margin-top: 5px;
+		height: calc(100% - 190px);
 		overflow-y: auto;
 	}
 }

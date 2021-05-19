@@ -67,4 +67,26 @@ export const defaultMounts = {
 	]
 };
 
-export const defaultStore = { characters: defaultChar, gear: defaultGear, mounts: defaultMounts };
+export const defaultPets = {
+	bryce_morgan: [
+		{
+			id: 157950595,
+			speciesId: 156,
+			creatureDisplayId: 21362,
+			speciesName: 'Bananas',
+			level: 25,
+			quality: 'Rare',
+			isFavorite: true
+		},
+		{
+			id: 159018284,
+			speciesId: 2780,
+			creatureDisplayId: 93437,
+			speciesName: 'Daisy',
+			level: 25,
+			quality: 'Rare'
+		}
+	]
+};
+
+export const defaultStore = { characters: defaultChar, gear: defaultGear, mounts: defaultMounts, pets: defaultPets };
