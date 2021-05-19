@@ -4,6 +4,14 @@ import { fetchCharPets } from '../store/pets';
 import PetIndexItem from './PetIndexItem';
 import '../styles/CharacterPets.scss';
 
+// Used to make comparisons when sorting pets
+const QUALITY_SORT_MAP = {
+  Poor: 0,
+  Common: 1,
+  Uncommon: 2,
+  Rare: 3
+}
+
 function CharacterPets() {
 	const dispatch = useDispatch();
 	const currentCharKey = useSelector((state) => state.session.currentChar);
@@ -58,6 +66,26 @@ function CharacterPets() {
       }
       // Only show pets with qualities that are selected (default all)
       filteredPets = filteredPets.filter(pet => filteredQualities[pet.quality])
+
+      // Sort by favorites > quality > level > name
+      filteredPets = filteredPets.sort((a, b) => {
+        // Favorites should appear before non-favorites
+        if ((b.isFavorite || 0) - (a.isFavorite || 0)) {
+          return (b.isFavorite || 0) - (a.isFavorite || 0);
+        }
+        // Higher quality appear before lower quality
+        if (QUALITY_SORT_MAP[b.quality] - QUALITY_SORT_MAP[a.quality]){
+          return QUALITY_SORT_MAP[b.quality] - QUALITY_SORT_MAP[a.quality];
+        }
+        // Higher level appear before lower level
+        if (b.level - a.level) {
+          return b.level - a.level;
+        }
+        // Name is the final tie-breaker, with nicknames taking precedence
+        const aName = a.nickname || a.speciesName;
+        const bName = b.nickname || b.speciesName;
+        return aName > bName ? 1 : -1;
+      })
       setFilteredPets(filteredPets)
     }
     
