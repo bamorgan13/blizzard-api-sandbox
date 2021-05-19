@@ -17,22 +17,13 @@ function MountIndexItem({ mount: { id, name } }) {
 		[ mount, id, oAuth, dispatch ]
 	);
 
-	// The mount represents the fully populated data after the fetch for details
-	// If this isn't present, we can use the basic mount name and id from props,
-	// but no media will be shown.
-	return mount ? (
-		<li className='mount-index-item'>
-			<a href={`https://www.wowhead.com/mount/${mount.id}`} className='mount-link'>
-				<div className='mount-shadow'>
-					<img src={mount.media.href} alt={mount.name} className='mount-img' />
-					<p className='mount-name'>{mount.name}</p>
-				</div>
-			</a>
-		</li>
-	) : (
+	// If we've fetched the additional mount data, we can show the media, otherwise
+	// we use only have the basic data passed from props.
+	return (
 		<li className='mount-index-item'>
 			<a href={`https://www.wowhead.com/mount/${id}`} className='mount-link'>
 				<div className='mount-shadow'>
+					{mount && <img src={mount.media.href} alt={name} className='mount-img' />}
 					<p className='mount-name'>{name}</p>
 				</div>
 			</a>

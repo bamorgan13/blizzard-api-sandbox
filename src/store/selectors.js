@@ -77,6 +77,63 @@ export async function selectMountDetails(mountData, mediaData) {
 	};
 }
 
+// Strips the large object of pet data to only that which will be used by the app
+export function selectCharPetData(body) {
+	return body.pets.map((pet) => ({
+		id: pet.id,
+		speciesId: pet.species.id,
+		creatureDisplayId: pet.creature_display ? pet.creature_display.id : null,
+		speciesName: pet.species.name,
+		nickname: pet.name,
+		level: pet.level,
+		quality: pet.quality.name,
+		isFavorite: pet.is_favorite
+	}));
+}
+
+// Strips, reformats, and combines pet details and media to relevent data
+// A defaultPet is created due to some requests for character pets results in 404s
+// from Blizzard API. If that data doesn't exist we still want to have the keys
+// present in our returned object.
+export async function selectPetDetails(petData, mediaData) {
+	let selected = { ...defaultPet };
+	if (petData) {
+		selected = {
+			...selected,
+			id: petData.id,
+			name: petData.name,
+			type: {
+				id: petData.battle_pet_type.id,
+				name: petData.battle_pet_type.name
+			},
+			description: petData.description,
+			media: {
+				id: petData.media.id,
+				icon: petData.icon
+			}
+		};
+	}
+	if (mediaData) {
+		selected.media.href = mediaData.assets[0].value;
+	}
+
+	return selected;
+}
+
+const defaultPet = {
+	id: null,
+	name: null,
+	type: {
+		id: null,
+		name: null
+	},
+	description: null,
+	media: {
+		id: null,
+		icon: null
+	}
+};
+
 // Strips realm data object to dev-friendly array of objects representing the name and slug
 export function selectAvailableRealms(realmData) {
 	const availableRealms = realmData.realms.map((realm) => {
