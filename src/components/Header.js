@@ -9,6 +9,7 @@ function Header() {
 
 	return (
 		<header className='app-header'>
+			<div className='header-spacer' />
 			<h1
 				data-tip
 				data-for='welcomeTip'

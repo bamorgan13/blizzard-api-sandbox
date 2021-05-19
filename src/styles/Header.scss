@@ -5,13 +5,19 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	position: relative;
+	// position: relative;
 	h1 {
-		position: absolute;
+		min-width: 410px;
 		color: white;
 		font-size: 32px;
 		text-align: center;
 		cursor: pointer;
+	}
+
+	.header-spacer {
+		margin-left: 40px;
+		margin-right: auto;
+		width: 450px;
 	}
 }
 
@@ -20,6 +26,7 @@
 	align-items: center;
 	margin-left: auto;
 	margin-right: 40px;
+	min-width: 450px;
 }
 
 .header-links-list li {
