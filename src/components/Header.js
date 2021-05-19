@@ -1,11 +1,26 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
+import { clearActiveChar } from '../store/session';
 import '../styles/Header.scss';
 
 function Header() {
+	const dispatch = useDispatch();
+
 	return (
 		<header className='app-header'>
-			<h1>Blizz Sandbox - Wowhead Demo</h1>
+			<h1
+				data-tip
+				data-for='welcomeTip'
+				onClick={() => {
+					dispatch(clearActiveChar());
+				}}
+			>
+				Blizz Sandbox - Wowhead Demo
+			</h1>
+			<ReactTooltip id='welcomeTip' place='bottom' effect='solid'>
+				Return to Welcome Screen
+			</ReactTooltip>
 			<ul className='header-links-list'>
 				<li>
 					<div className='header-links-list-header'>

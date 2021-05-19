@@ -9,7 +9,7 @@ import Welcome from './Welcome';
 
 function CharacterDetails() {
 	const currentCharKey = useSelector((state) => state.session.currentChar);
-	const currentChar = useSelector((state) => state.characters[currentCharKey]);
+	const currentChar = useSelector((state) => (currentCharKey ? state.characters[currentCharKey] : null));
 	const [ activeDetail, setActiveDetail ] = useState('gear');
 
 	const activeDetailMapping = {

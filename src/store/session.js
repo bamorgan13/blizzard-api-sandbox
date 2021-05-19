@@ -2,11 +2,18 @@ import { RECEIVE_CHARACTER, SET_CHAR_NOT_FOUND } from './characters';
 
 export const SET_CURRENT_CHAR = 'SET_CURRENT_CHAR';
 export const SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN';
+export const CLEAR_ACTIVE_CHAR = 'CLEAR_ACTIVE_CHAR';
 
 export const setCurrentChar = (key) => {
 	return {
 		type: SET_CURRENT_CHAR,
 		key
+	};
+};
+
+export const clearActiveChar = () => {
+	return {
+		type: CLEAR_ACTIVE_CHAR
 	};
 };
 
@@ -29,6 +36,8 @@ export const sessionReducer = (state = { currentChar: null, charHistory: [], oAu
 			return { ...state, currentChar: action.key, charHistory: filteredHistory };
 		// Currently handling an error by replacing the currentChar with an error message
 		// Could potentially be broken apart into a different location
+		case CLEAR_ACTIVE_CHAR:
+			return { ...state, currentChar: null };
 		case SET_CHAR_NOT_FOUND:
 			return { ...state, currentChar: { error: 'Character Not Found' } };
 		case SET_ACCESS_TOKEN:
