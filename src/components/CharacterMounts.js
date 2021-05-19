@@ -33,7 +33,8 @@ function CharacterMounts() {
 				<p>{`Total Mounts: ${charMounts.length}`}</p>
 				<input type='text' value={filteredName} placeholder="Filter by name" onChange={(e) => setFilteredName(e.target.value)}/>
 				<ul>
-					{filteredMounts.map((mount) => {
+					{/* sorts mounts by name before creating index item components */}
+					{filteredMounts.sort((a, b) => a.name < b.name ? -1 : 0).map((mount) => {
 						return <MountIndexItem key={mount.id} mount={mount} />;
 					})}
 				</ul>
