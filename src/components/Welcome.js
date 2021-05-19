@@ -37,8 +37,12 @@ function Welcome() {
 				<p>A huge thank you to Blizzard and Wowhead for providing the tools to make this app possible!</p>
 				<div className='images-block'>
 					<div className='images-container'>
-						<img className='welcome-logo' src={blizzard} alt='Blizzard' />
-						<img className='welcome-logo' src={wowhead} alt='Wowhead' />
+						<a href='https://www.blizzard.com'>
+							<img className='welcome-logo' src={blizzard} alt='Blizzard' />
+						</a>
+						<a href='https://www.wowhead.com'>
+							<img className='welcome-logo' src={wowhead} alt='Wowhead' />
+						</a>
 					</div>
 					<footer>
 						Blizzard Entertainment is a trademark or registered trademark of Blizzard Entertainment, Inc., in the U.S.

@@ -46,6 +46,12 @@
 		.images-container {
 			flex-direction: row;
 			justify-content: center;
+
+			a {
+				display: flex;
+				align-items: center;
+			}
+
 			.welcome-logo {
 				width: 300px;
 				height: auto;
