@@ -5,7 +5,7 @@ import '../styles/CharacterBasics.scss';
 function CharacterBasics() {
 	const currentChar = useSelector((state) => state.characters[state.session.currentChar]);
 	return (
-		<div className='stats'>
+		<div className='stats border'>
 			<header>Character Details</header>
 			<p>
 				<b>Name:</b> {currentChar.name}

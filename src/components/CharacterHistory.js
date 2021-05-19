@@ -15,7 +15,7 @@ function CharacterHistory() {
 			<ul className='char-history-list'>
 				{previousChars.map((char) => (
 					<li key={char.charKey} className='char-history-list-item'>
-						<button onClick={() => dispatch(setCurrentChar(char.charKey))}>
+						<button className='border' onClick={() => dispatch(setCurrentChar(char.charKey))}>
 							<img src={char.avatarHref} alt={`${char.name} avatar`} />
 							<div className='index-details'>
 								<p className={char.class}>

@@ -6,7 +6,7 @@ import '../styles/Welcome.scss';
 
 function Welcome() {
 	return (
-		<div className='welcome'>
+		<div className='welcome border'>
 			<div className='intro'>
 				<h3>Thanks for checking out the Blizzard API Sandbox!</h3>
 				<p>

@@ -28,19 +28,19 @@ function CharacterDetails() {
 				<nav className='detail-select-nav'>
 					<button
 						onClick={() => setActiveDetail('gear')}
-						className={activeDetail === 'gear' ? 'detail-select active' : 'detail-select'}
+						className={activeDetail === 'gear' ? 'border detail-select active' : 'border detail-select'}
 					>
 						Display Gear
 					</button>
 					<button
 						onClick={() => setActiveDetail('mounts')}
-						className={activeDetail === 'mounts' ? 'detail-select active' : 'detail-select'}
+						className={activeDetail === 'mounts' ? 'border detail-select active' : 'border detail-select'}
 					>
 						Display Mounts
 					</button>
 					<button
 						onClick={() => setActiveDetail('pets')}
-						className={activeDetail === 'pets' ? 'detail-select active' : 'detail-select'}
+						className={activeDetail === 'pets' ? 'border detail-select active' : 'border detail-select'}
 					>
 						Display Pets
 					</button>

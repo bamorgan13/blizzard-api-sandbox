@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPetData } from '../store/pets.js';
-import '../styles/PetIndexItem.scss';
+import '../styles/DetailIndexItem.scss';
 
 function PetIndexItem({ pet: { speciesId, speciesName, nickname, level, quality, creatureDisplayId, isFavorite } }) {
 	const dispatch = useDispatch();
@@ -22,13 +22,13 @@ function PetIndexItem({ pet: { speciesId, speciesName, nickname, level, quality,
 	// Some pets' creature models don't return images, so we default to the icon
 	// if this failure occurs
 	return (
-		<li className='pet-index-item'>
-			<a href={`https://www.wowhead.com/battle-pet/${speciesId}`} className='pet-link'>
-				<div className='pet-shadow'>
-					{pet && <img src={pet.media.href || pet.media.icon} alt={speciesName} className='pet-img' />}
-					<div className='pet-data-details'>
-						<p className={`pet-name ${quality}`}>{`${nickname || speciesName}`}</p>
-						<p className={`pet-name ${quality}`}>{`${speciesName} - lvl ${level}`}</p>
+		<li className='index-item border'>
+			<a href={`https://www.wowhead.com/battle-pet/${speciesId}`} className='index-link'>
+				<div className='index-shadow'>
+					{pet && <img src={pet.media.href || pet.media.icon} alt={speciesName} className='index-img pet' />}
+					<div className='index-data-details'>
+						<p className={`index-name ${quality}`}>{`${nickname || speciesName}`}</p>
+						<p className={`index-name ${quality}`}>{`${speciesName} - lvl ${level}`}</p>
 					</div>
 				</div>
 			</a>

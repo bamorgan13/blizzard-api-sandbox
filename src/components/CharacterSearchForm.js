@@ -42,7 +42,7 @@ function CharacterSearchForm() {
 	}
 
 	return (
-		<form onSubmit={(e) => charSubmit(e)}>
+		<form className='border' onSubmit={(e) => charSubmit(e)}>
 			<div className='form-group'>
 				<label htmlFor='region'>Region:</label>
 				<select name='region' value={region} onChange={(e) => setRegion(e.target.value)}>

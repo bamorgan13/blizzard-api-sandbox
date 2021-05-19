@@ -21,7 +21,7 @@ function CharacterGear() {
 	);
 
 	return (
-		<div className='gear-details'>
+		<div className='gear-details border'>
 			<header>Gear Details</header>
 			{charGear ? (
 				Object.entries(charGear).map(([ slot, data ]) => {

@@ -75,7 +75,7 @@ function CharacterPets() {
   }, [charPets])
 
 	return (
-		<div className='pet-details'>
+		<div className='pet-details border'>
 			<header>Pet Details</header>
 			{charPets ? (
 				<>

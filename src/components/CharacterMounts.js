@@ -26,7 +26,7 @@ function CharacterMounts() {
 	const filteredMounts = filteredName.length ? charMounts.filter(mount => mount.name.toLowerCase().includes(filteredName.toLowerCase())) : charMounts;
 
 	return (
-		<div className='mount-details'>
+		<div className='mount-details border'>
 			<header>Mount Details</header>
 			{charMounts ? (
 				<>

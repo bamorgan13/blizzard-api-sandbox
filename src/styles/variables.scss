@@ -32,3 +32,27 @@ $sylvanas: rgb(135, 136, 238);
 $darkbackground: rgb(20, 27, 32);
 $midbackground: rgb(40, 51, 59);
 $lightbackground: rgb(57, 64, 87);
+
+// Scrollbar mixin
+@mixin scrollbars() {
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: $lightbackground;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: $darkbackground;
+		border-radius: 4px;
+		border: 1px solid $lightbackground;
+	}
+
+	// IE
+	& {
+		scrollbar-width: thin;
+		scrollbar-face-color: $darkbackground;
+		scrollbar-track-color: $lightbackground;
+	}
+}
