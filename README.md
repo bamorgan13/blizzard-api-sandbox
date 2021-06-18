@@ -11,6 +11,7 @@ The app is currently able to
 * Display currently equiped gear, with Wowhead tooltips for each piece
 * Cache previously retrieced character and equipment data to prevent unnecessary requests
 * Display history of viewed characters to aid in caching demonstration
+* Display pet and mount collections, as well as filter these results
 
 ### Architecture and Technologies
 * React is used to render HTML, utilizing hooks to maintain completely functional components
@@ -93,7 +94,6 @@ Future plans for the app include
 * Ensuring responsive design at all screen sizes
 * Displaying character raid progression
 * Displaying character dungeon and Mythic+ data
-* Displaying collection information, such as pets and mounts
 Developing a simple backend is a possibility as well. It would allow the app to
 * Have users log in to store their history
 * Implement OAuth with Blizzard and automatically pull character data
