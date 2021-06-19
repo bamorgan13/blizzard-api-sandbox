@@ -7,7 +7,7 @@ from urllib.parse import quote_plus
 
 from .config import Config
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='./static', static_url_path='/static')
 
 app.config.from_object(Config)
 
@@ -58,7 +58,6 @@ def blizz_auth():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def react_root(path):
-    # Sets up for favicon usage if changed in future
-    if path == 'favicon.ico':
-        return app.send_static_file('favicon.ico')
+    if path and os.path.exists(f'./{path}'):
+        return app.send_static_file(path)
     return app.send_static_file('index.html')

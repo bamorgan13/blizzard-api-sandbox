@@ -46,8 +46,8 @@ export const defaultChar = {
 		},
 		region: 'us',
 		assets: {
-			avatar: 'images/profile-square.jpg',
-			main: 'images/bryce_ryon_sunset.jpg'
+			avatar: '/static/images/profile-square.jpg',
+			main: '/static/images/bryce_ryon_sunset.jpg'
 		}
 	}
 };
