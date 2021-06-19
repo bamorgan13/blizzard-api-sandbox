@@ -1,6 +1,7 @@
 # Blizzard API Sandbox
 
 The [Blizzard API Sandbox](https://blizzard-api-sandbox.herokuapp.com/ "Blizzard API Sandbox Live Site") is a quick demonstration of front-end web development, interfacing with the Blizzard API as well as incorporating Wowhead tooltips.
+Since its conception, the app has been expanded to include a Flask backend in order to securely interface with the Blizzard client authorization as well as incorporating Docker for deployment to Heroku.
 
 ![](documentation/character_detail_example.png)
 
@@ -14,10 +15,12 @@ The app is currently able to
 * Display pet and mount collections, as well as filter these results
 
 ### Architecture and Technologies
+* Flask allows for a backend server to securely interface with the Blizzard authentication API
 * React is used to render HTML, utilizing hooks to maintain completely functional components
 * Redux caches character data so in a systematically organized fashion for ease of lookup and reduced calls to the Blizzard API
 * Node-sass enables the use of `.scss` files for more powerful CSS creation
 * ReactTooltip implements a quick and easy tooltip for links to my personal webpages
+* Docker containerizes the application for easy Heroku deployment
 
 ### Interesting Code Segments
 The fetching of character data is particularly interesting because it goes through multiple checks, fetching from multiple Blizzard API endpoints, a stripping of unnecessary data, and a systematic storing of this data by dynamically generating a character-specific key. 
@@ -94,10 +97,9 @@ Future plans for the app include
 * Ensuring responsive design at all screen sizes
 * Displaying character raid progression
 * Displaying character dungeon and Mythic+ data
-Developing a simple backend is a possibility as well. It would allow the app to
+Expand upon the backend to allow the app to
 * Have users log in to store their history
 * Implement OAuth with Blizzard and automatically pull character data
-* Move basic client authorization to the backend to secure client secret
 * Store favorite searches
 * and much more!
 
