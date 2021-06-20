@@ -27,9 +27,11 @@ function Welcome() {
 			<div className='future'>
 				<p>Future plans for the app include displaying such data as:</p>
 				<ul className='future-capabilities'>
-					<li className='completed'>Collection information, such as pets and mounts (Completed! 5/18)</li>
+					<li className='completed'>Collection information, such as pets and mounts (Completed!)</li>
+					<li className='completed'>Flask backend to support developer key security (Completed!)</li>
 					<li>Character raid progression</li>
 					<li>Character dungeon and mythic+ data</li>
+					<li>User account creation, database storage, and saving of characters</li>
 				</ul>
 			</div>
 
@@ -55,6 +57,10 @@ function Welcome() {
 				<h3>Using the App</h3>
 				<p>To get started with the app, select a region and realm on the left, then search for a character by name.</p>
 				<p>The character's information will be displayed in this area, with a history tracked to the left.</p>
+				<br />
+				<h3>Don't have a World of Warcraft character?</h3>
+				<p>No problem! Click the "Random Character" button in the form on the left.</p>
+				<p>A random character from a few preselects will be chosen for you!</p>
 			</div>
 		</div>
 	);

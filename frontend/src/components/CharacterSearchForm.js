@@ -5,9 +5,18 @@ import { fetchChar } from '../store/characters';
 import '../styles/CharacterSearchForm.scss';
 import { setCurrentChar } from '../store/session';
 
+// "Random" characters to select from when the Random Character button is used
+const RANDOM_CHARACTERS = [
+	{ region: 'us', realm: 'terenas', name: 'zelrod' },
+	{ region: 'us', realm: 'illidan', name: 'atrocityjr' },
+	{ region: 'eu', realm: 'twisting-nether', name: 'methodsco' },
+	{ region: 'eu', realm: 'antonidas', name: 'ipsa' }
+];
+
 function CharacterSearchForm() {
 	const dispatch = useDispatch();
 	const oAuth = useSelector((state) => state.session.oAuth);
+	const currentCharKey = useSelector((state) => state.session.currentChar);
 
 	const [ region, setRegion ] = useState('us');
 	const [ realm, setRealm ] = useState('');
@@ -41,8 +50,22 @@ function CharacterSearchForm() {
 		}
 	}
 
+	// Select a random character from the RANDOM_CHARACTERS array
+	// If the selected character is the currently active character, select again
+	function selectRandomChar() {
+		const selectedChar = RANDOM_CHARACTERS[(Math.random() * RANDOM_CHARACTERS.length) | 0];
+		const selectedCharKey = `${selectedChar.region}_${selectedChar.realm}_${selectedChar.name}`;
+		return selectedCharKey === currentCharKey ? selectRandomChar() : selectedChar;
+	}
+
+	function fetchRandom(e) {
+		e.preventDefault();
+		const selectedChar = selectRandomChar();
+		dispatch(fetchChar(selectedChar.region, selectedChar.realm, selectedChar.name, oAuth));
+	}
+
 	return (
-		<form className='border' onSubmit={(e) => charSubmit(e)}>
+		<form className='border' onSubmit={charSubmit}>
 			<div className='form-group'>
 				<label htmlFor='region'>Region:</label>
 				<select name='region' value={region} onChange={(e) => setRegion(e.target.value)}>
@@ -73,6 +96,7 @@ function CharacterSearchForm() {
 				/>
 			</div>
 			<input type='submit' value='Retrieve Character' />
+			<button onClick={fetchRandom}>Random Character</button>
 		</form>
 	);
 }

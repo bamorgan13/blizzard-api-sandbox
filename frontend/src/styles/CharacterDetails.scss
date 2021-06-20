@@ -7,16 +7,6 @@
 	display: flex;
 	justify-content: space-around;
 
-	&.none {
-		flex-direction: column;
-		align-items: center;
-		justify-content: flex-start;
-
-		p {
-			font-size: 20px;
-		}
-	}
-
 	.details-data {
 		width: 40%;
 		min-width: 300px;
@@ -27,7 +17,7 @@
 		.detail-select-nav {
 			font-size: 18px;
 			height: 30px;
-			width: 100%;
+			width: 70%;
 			margin-top: 5px;
 			display: flex;
 			flex-direction: row;
@@ -36,6 +26,7 @@
 				background-color: $midbackground;
 				color: white;
 				padding: 2px 5px;
+				white-space: nowrap;
 
 				&.active,
 				&:hover {
