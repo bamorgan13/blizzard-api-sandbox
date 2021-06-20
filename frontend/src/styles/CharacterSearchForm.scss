@@ -6,11 +6,13 @@
 	margin: 5px;
 
 	input,
-	select {
+	select,
+	button {
 		width: calc(100% - 60px);
 	}
 
-	input {
+	input,
+	button {
 		display: inline-block;
 		border: 1px solid black;
 		background-color: white;
@@ -40,7 +42,8 @@ form {
 	}
 }
 
-input[type=submit] {
+input[type=submit],
+button {
 	border: 1px solid black;
 	width: 50%;
 	text-align: center;
