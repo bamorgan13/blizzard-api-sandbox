@@ -8,7 +8,6 @@ import { setCurrentChar } from '../store/session';
 // "Random" characters to select from when the Random Character button is used
 const RANDOM_CHARACTERS = [
 	{ region: 'us', realm: 'terenas', name: 'zelrod' },
-	{ region: 'us', realm: 'illidan', name: 'atrocityjr' },
 	{ region: 'eu', realm: 'twisting-nether', name: 'methodsco' },
 	{ region: 'eu', realm: 'antonidas', name: 'ipsa' }
 ];
