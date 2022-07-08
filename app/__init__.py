@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 import requests
 from urllib.parse import quote_plus
+from flask_oauth import OAuth
 
 from .config import Config
 
@@ -14,6 +15,18 @@ app.config.from_object(Config)
 # Application Security
 CORS(app)
 CSRFProtect(app)
+
+# Sample for Twitter
+# https://flask-oauthlib.readthedocs.io/en/latest/oauth2.html
+oauth = OAuth()
+bnet = oauth.remote_app('bnet', 
+    base_url='',
+    request_token_url='https://api.twitter.com/oauth/request_token',
+    access_token_url='https://api.twitter.com/oauth/access_token',
+    authorize_url='https://api.twitter.com/oauth/authenticate',
+    consumer_key='<your key here>',
+    consumer_secret='<your secret here>'
+)
 
 
 # Any request made over http is redirected to https.
