@@ -8,7 +8,7 @@ function Header() {
 	const dispatch = useDispatch();
 
 	return (
-		<header data-tip={''} className='app-header'>
+		<header className='app-header'>
 			<div className='header-spacer' />
 			<h1
 				data-tip='Return to Welcome Screen'
