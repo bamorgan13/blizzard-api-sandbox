@@ -89,4 +89,26 @@ export const defaultPets = {
 	]
 };
 
-export const defaultStore = { characters: defaultChar, gear: defaultGear, mounts: defaultMounts, pets: defaultPets };
+export const expansionTemplate = {
+	"Classic": {},
+	"Burning Crusade": {},
+	"Wrath of the Lich King": {},
+	"Cataclysm": {},
+	"Mists of Pandaria": {},
+	"Warlords of Draenor": {},
+	"Legion": {},
+	"Battle for Azeroth": {},
+	"Shadowlands": {}
+}
+
+export const defaultRaids = {
+	bryce_morgan: {...expansionTemplate}
+}
+
+export const defaultStore = { 
+	characters: defaultChar, 
+	gear: defaultGear, 
+	mounts: defaultMounts, 
+	pets: defaultPets ,
+	raids: defaultRaids
+};

@@ -1,3 +1,5 @@
+import { expansionTemplate } from "./defaults";
+
 // Strips the large character and media objects down to data that will be used by the app
 export function selectCharInfo(region, charData, media) {
 	const assets = {};
@@ -22,7 +24,7 @@ export function selectCharInfo(region, charData, media) {
 		lastLogin: new Date(charData.last_login_timestamp).toLocaleString(),
 		assets
 	};
-}
+};
 
 // Returns an array of simplified character data for each item in charHistory
 // The simplified data is used to make history buttons in CharacterHistory component
@@ -38,7 +40,7 @@ export function selectIndexData(state) {
 			class: iteratingChar.class
 		};
 	});
-}
+};
 
 // Strips the large object of gear data to only that which will be used by the app
 export function selectGearData(body) {
@@ -52,7 +54,7 @@ export function selectGearData(body) {
 		};
 	});
 	return gearData;
-}
+};
 
 // Strips the large object of mount data to only that which will be used by the app
 export function selectCharMountData(body) {
@@ -61,7 +63,7 @@ export function selectCharMountData(body) {
 		name: mount.name,
 		is_useable
 	}));
-}
+};
 
 //  Strips, reformats, and combines mount details and media to relevent data
 export async function selectMountDetails(mountData, mediaData) {
@@ -75,7 +77,7 @@ export async function selectMountDetails(mountData, mediaData) {
 			href: mediaData.assets[0].value
 		}
 	};
-}
+};
 
 // Strips the large object of pet data to only that which will be used by the app
 export function selectCharPetData(body) {
@@ -89,7 +91,7 @@ export function selectCharPetData(body) {
 		quality: pet.quality.name,
 		isFavorite: pet.is_favorite
 	}));
-}
+};
 
 // Strips, reformats, and combines pet details and media to relevent data
 // A defaultPet is created due to some requests for character pets results in 404s
@@ -118,7 +120,7 @@ export async function selectPetDetails(petData, mediaData) {
 	}
 
 	return selected;
-}
+};
 
 const defaultPet = {
 	id: null,
@@ -143,4 +145,42 @@ export function selectAvailableRealms(realmData) {
 	availableRealms.push({ name: '--Select Realm--', slug: '' });
 	// Sort realms alphabetically by name instead of the default id
 	return availableRealms.sort((a, b) => (a.name < b.name ? -1 : 1));
-}
+};
+
+export function selectCharRaidData(body) {
+	const raidData = {...expansionTemplate};
+	body.expansions.forEach((expansion) => {
+		const expansionData = {
+			name : expansion.expansion.name,
+			id: expansion.expansion.id,
+			instances : {}
+		};
+		
+
+		expansion.instances.forEach((instance) => {
+			const instanceData = {
+				name: instance.instance.name,
+				id: instance.instance.id,
+				modes: {}
+			}
+
+			instance.modes.forEach((mode) => {
+				const modeData = {
+					name: mode.difficulty.name,
+					status: mode.status.name,
+					progress: {
+						completed: mode.progress.completed_count,
+						total: mode.progress.total_count
+					}
+				};
+
+				instanceData.modes[mode.difficulty.name] = modeData;
+			})
+
+			expansionData.instances[instance.instance.name] = instanceData;
+		})
+
+		raidData[expansion.expansion.name] =  expansionData;
+	});
+	return raidData;
+};
