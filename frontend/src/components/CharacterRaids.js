@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRaids } from '../store/raids';
+import RaidExpansionDropdown from './RaidExpansionDropdown';
 
 function CharacterRaids() {
 	const dispatch = useDispatch();
@@ -19,7 +20,6 @@ function CharacterRaids() {
 		[ dispatch, oAuth, currentChar, charRaids ]
 	);
 
-	// // If a user has submitted content in the textbox, filter raids by names that include that content
   if (charRaids) console.log(charRaids);
 	return (
 		<div className='raid-details border'>
@@ -28,27 +28,7 @@ function CharacterRaids() {
 				<>
 				<ul>
           {Object.entries(charRaids).map(([expansionName, expansion]) => {
-            return <li key={expansion.id || expansionName}>
-              <div>
-                <p>{expansionName}</p>
-                { expansion.instances ? 
-                  <ul>
-                    {Object.entries(expansion.instances).map(([instanceName, instance]) => {
-                      return <li key={instance.id}>
-                        <div>
-                          <p>{instanceName}</p>
-                          <div>
-                            {Object.entries(instance.modes).map(([modeName, mode]) => {
-                              return <p key={modeName}>{modeName} - {mode.progress.completed}/{mode.progress.total}</p>
-                            })}
-                          </div>
-                        </div>
-                      </li>
-                    })}
-                  </ul> : null
-                }
-              </div>
-            </li>
+            return <RaidExpansionDropdown expansion={expansion} expansionName={expansionName} key={expansionName} />
           })}
 				</ul>
 				</>
