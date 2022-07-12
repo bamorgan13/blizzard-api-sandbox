@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import RaidInstanceIndexItem from './RaidInstanceIndexItem';
 
 function RaidExpansionDropdown({expansion, expansionName}) {
 	const [ isOpen, setIsOpen ] = useState(false);
@@ -12,16 +13,7 @@ function RaidExpansionDropdown({expansion, expansionName}) {
             { 
               Object.entries(expansion.instances).map(([instanceName, instance]) => {
                 return (
-                  <li key={instance.id}>
-                    <div className='index-shadow'>
-                      <p className='index-name'>{instanceName}</p>
-                      <div>
-                        {Object.entries(instance.modes).map(([modeName, mode]) => {
-                          return <p key={modeName}>{modeName} - {mode.progress.completed}/{mode.progress.total}</p>
-                        })}
-                      </div>
-                    </div>
-                  </li>
+                  <RaidInstanceIndexItem key={instanceName} instance={instance}/>
                 )
               })
             }

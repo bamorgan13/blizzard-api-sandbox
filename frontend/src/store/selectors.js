@@ -156,7 +156,6 @@ export function selectCharRaidData(body) {
 			instances : {}
 		};
 		
-
 		expansion.instances.forEach((instance) => {
 			const instanceData = {
 				name: instance.instance.name,
@@ -183,4 +182,20 @@ export function selectCharRaidData(body) {
 		raidData[expansion.expansion.name] =  expansionData;
 	});
 	return raidData;
+};
+
+//  Strips, reformats, and combines mount details and media to relevent data
+export async function selectRaidDetails(raidData, mediaData) {
+	return {
+		id: raidData.id,
+		name: raidData.name,
+		description: raidData.description,
+		location: raidData.location.name,
+		locationId: raidData.location.id,
+		minLvl: raidData.minimum_level,
+		media: {
+			id: raidData.media.id,
+			href: mediaData.assets[0].value
+		}
+	};
 };
