@@ -25,7 +25,7 @@ function PetIndexItem({ pet: { speciesId, speciesName, nickname, level, quality,
 	// if this failure occurs
 	return (
 		<li className='index-item border'>
-			<a href={`https://www.wowhead.com/battle-pet/${speciesId}`} className='index-link'>
+			<a href={`https://www.wowhead.com/battle-pet/${speciesId}`} target='_blank' rel='noreferrer' className='index-link'>
 				<div className='index-shadow'>
 					{isFavorite && <FontAwesomeIcon className='favorite-star' icon={faStar} />}
 					{pet && <img src={pet.media.href || pet.media.icon} alt={speciesName} className='index-img pet' />}

@@ -1,3 +1,5 @@
+import { expansionTemplate } from "./defaults";
+
 // Strips the large character and media objects down to data that will be used by the app
 export function selectCharInfo(region, charData, media) {
 	const assets = {};
@@ -22,7 +24,7 @@ export function selectCharInfo(region, charData, media) {
 		lastLogin: new Date(charData.last_login_timestamp).toLocaleString(),
 		assets
 	};
-}
+};
 
 // Returns an array of simplified character data for each item in charHistory
 // The simplified data is used to make history buttons in CharacterHistory component
@@ -38,7 +40,7 @@ export function selectIndexData(state) {
 			class: iteratingChar.class
 		};
 	});
-}
+};
 
 // Strips the large object of gear data to only that which will be used by the app
 export function selectGearData(body) {
@@ -52,7 +54,7 @@ export function selectGearData(body) {
 		};
 	});
 	return gearData;
-}
+};
 
 // Strips the large object of mount data to only that which will be used by the app
 export function selectCharMountData(body) {
@@ -61,10 +63,10 @@ export function selectCharMountData(body) {
 		name: mount.name,
 		is_useable
 	}));
-}
+};
 
 //  Strips, reformats, and combines mount details and media to relevent data
-export async function selectMountDetails(mountData, mediaData) {
+export function selectMountDetails(mountData, mediaData) {
 	return {
 		id: mountData.id,
 		name: mountData.name,
@@ -75,7 +77,7 @@ export async function selectMountDetails(mountData, mediaData) {
 			href: mediaData.assets[0].value
 		}
 	};
-}
+};
 
 // Strips the large object of pet data to only that which will be used by the app
 export function selectCharPetData(body) {
@@ -89,13 +91,13 @@ export function selectCharPetData(body) {
 		quality: pet.quality.name,
 		isFavorite: pet.is_favorite
 	}));
-}
+};
 
 // Strips, reformats, and combines pet details and media to relevent data
 // A defaultPet is created due to some requests for character pets results in 404s
 // from Blizzard API. If that data doesn't exist we still want to have the keys
 // present in our returned object.
-export async function selectPetDetails(petData, mediaData) {
+export function selectPetDetails(petData, mediaData) {
 	let selected = { ...defaultPet };
 	if (petData) {
 		selected = {
@@ -118,7 +120,7 @@ export async function selectPetDetails(petData, mediaData) {
 	}
 
 	return selected;
-}
+};
 
 const defaultPet = {
 	id: null,
@@ -143,4 +145,70 @@ export function selectAvailableRealms(realmData) {
 	availableRealms.push({ name: '--Select Realm--', slug: '' });
 	// Sort realms alphabetically by name instead of the default id
 	return availableRealms.sort((a, b) => (a.name < b.name ? -1 : 1));
+};
+
+export function selectCharRaidData(body) {
+	const raidData = {...expansionTemplate};
+	
+	// If a character has no raid data, Blizzard API still returns a successful 
+	// response of an object with basic character data instead of raid data.
+	// If this occurs, return the empty raidData object we created before trying 
+	// to unpack the non-existent raid data from the response.
+	if (!body.expansions) return raidData;
+
+	body.expansions.forEach((expansion) => {
+		const expansionData = {
+			name : expansion.expansion.name,
+			id: expansion.expansion.id,
+			instances : {}
+		};
+		
+		expansion.instances.forEach((instance) => {
+			const instanceData = {
+				name: instance.instance.name,
+				id: instance.instance.id,
+				modes: {}
+			}
+
+			instance.modes.forEach((mode) => {
+				const modeData = {
+					name: mode.difficulty.name,
+					status: mode.status.type,
+					progress: {
+						completed: mode.progress.completed_count,
+						total: mode.progress.total_count
+					}
+				};
+
+				instanceData.modes[mode.difficulty.name] = modeData;
+			})
+
+			expansionData.instances[instance.instance.name] = instanceData;
+		})
+
+		raidData[expansion.expansion.name] =  expansionData;
+	});
+	return raidData;
+};
+
+//  Strips, reformats, and combines raid details and media to relevent data
+export function selectRaidDetails(raidData, mediaData) {
+	return {
+		id: raidData.id,
+		name: raidData.name,
+		description: raidData.description,
+		wowheadTitle: formatWowheadRaidTitle(raidData.name),
+		media: {
+			id: raidData.media.id,
+			href: mediaData.assets[0].value
+		}
+	};
+};
+
+function formatWowheadRaidTitle(raidName) {
+	// The Battle for Mount Hyjal is an exception for the Wowhead naming convention
+	// Return the correct article title immediately for it, otherwise convert with 
+	// standard process, stripping ' and , and replacing spaces with -
+	return raidName === 'The Battle for Mount Hyjal' ? 'hyjal-summit' :
+	raidName.toLowerCase().replaceAll(' ', '-').replaceAll(/'|,/g, '')
 }
