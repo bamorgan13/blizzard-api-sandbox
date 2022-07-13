@@ -39,13 +39,11 @@ export const fetchRaidData = (id, oAuth) => async (dispatch) => {
 	const raidData = await fetchRetry(
 		`https://us.api.blizzard.com/data/wow/journal-instance/${id}?namespace=static-us&locale=en_US&access_token=${oAuth}`
 	);
-	// const mountData = await mountRes.json();
 
 	const mediaData = await fetchRetry(
 		`https://us.api.blizzard.com/data/wow/media/journal-instance/${id}?namespace=static-us&locale=en_US&access_token=${oAuth}`
 	);
-	// const mediaData = await mediaRes.json();
-	const selectedData = await selectRaidDetails(raidData, mediaData);
+	const selectedData = selectRaidDetails(raidData, mediaData);
 
 	dispatch(receiveRaidDetails(selectedData));
 };

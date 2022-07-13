@@ -20,7 +20,6 @@ function CharacterRaids() {
 		[ dispatch, oAuth, currentChar, charRaids ]
 	);
 
-  if (charRaids) console.log(charRaids);
 	return (
 		<div className='raid-details border'>
 			<header>Raid Details</header>

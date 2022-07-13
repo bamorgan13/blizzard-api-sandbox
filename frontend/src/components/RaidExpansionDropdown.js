@@ -5,9 +5,9 @@ function RaidExpansionDropdown({expansion, expansionName}) {
 	const [ isOpen, setIsOpen ] = useState(false);
 
 	return (
-    <li onClick={() => setIsOpen(!isOpen)} className={'index-item border'.concat(isOpen ? ' open' : '')}>
+    <li className={'index-item border'.concat(isOpen ? ' open' : '')}>
       <div className='index-shadow'>
-        <p className='index-name'>{expansionName}</p>
+        <p className='index-name' onClick={() => setIsOpen(!isOpen)}>{expansionName}</p>
         { isOpen && ( expansion.instances ? 
           <ul>
             { 

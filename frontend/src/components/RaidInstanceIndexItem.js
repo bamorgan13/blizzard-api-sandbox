@@ -17,14 +17,18 @@ function RaidInstanceIndexItem({ instance: { id, name, modes } }) {
 		[ raid, id, oAuth, dispatch ]
 	);
 
-	// If we've fetched the additional mount data, we can show the media, otherwise
+	// If we've fetched the additional raid data, we can show the media, otherwise
 	// we use only have the basic data passed from props.
 	return (
     <li>
       <div className='index-shadow'>
         <p className='index-name'>{name}</p>
         <div>
-          {raid && <img src={raid.media.href} alt={name} className='index-img mount' />}
+          { raid && 
+            <a href={`https://www.wowhead.com/${raid.wowheadTitle}`} target='_blank' rel='noreferrer' className='index-link'>
+              <img src={raid.media.href} alt={name} className='index-img mount' />
+            </a>
+          }
           {Object.entries(modes).map(([modeName, mode]) => {
             return <p key={modeName}>{modeName} - {mode.progress.completed}/{mode.progress.total}</p>
           })}

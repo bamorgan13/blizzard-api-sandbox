@@ -44,7 +44,7 @@ export const fetchPetData = (id, creatureDisplayId, oAuth) => async (dispatch) =
 				`https://us.api.blizzard.com/data/wow/media/creature-display/${creatureDisplayId}?namespace=static-us&locale=en_US&access_token=${oAuth}`
 			)
 		: null;
-	const selectedData = await selectPetDetails(petData, mediaData);
+	const selectedData = selectPetDetails(petData, mediaData);
 
 	dispatch(receivePetDetails(selectedData));
 };
