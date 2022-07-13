@@ -149,6 +149,13 @@ export function selectAvailableRealms(realmData) {
 
 export function selectCharRaidData(body) {
 	const raidData = {...expansionTemplate};
+	
+	// If a character has no raid data, Blizzard API still returns a successful 
+	// response of an object with basic character data instead of raid data.
+	// If this occurs, return the empty raidData object we created before trying 
+	// to unpack the non-existent raid data from the response.
+	if (!body.expansions) return raidData;
+
 	body.expansions.forEach((expansion) => {
 		const expansionData = {
 			name : expansion.expansion.name,
@@ -166,7 +173,7 @@ export function selectCharRaidData(body) {
 			instance.modes.forEach((mode) => {
 				const modeData = {
 					name: mode.difficulty.name,
-					status: mode.status.name,
+					status: mode.status.type,
 					progress: {
 						completed: mode.progress.completed_count,
 						total: mode.progress.total_count
