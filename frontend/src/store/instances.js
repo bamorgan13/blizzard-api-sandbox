@@ -1,4 +1,4 @@
-import { selectCharRaidData, selectRaidDetails, selectCharDungeonData, selectDungeonDetails } from './selectors';
+import { selectInstanceDetails, selectCharInstanceData } from './selectors';
 import { fetchRetry } from '../utility.js';
 
 export const RECEIVE_CHAR_RAIDS = 'RECEIVE_CHAR_RAIDS';
@@ -27,7 +27,7 @@ export const fetchInstances = (region, realm, name, oAuth, type) => async (dispa
 		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}/encounters/${type}s?namespace=profile-${region}&locale=en_US&access_token=${oAuth}`
 	);
 	const instanceData = await instanceRes.json();
-	const selectedData = type === 'raid' ? selectCharRaidData(instanceData) : selectCharDungeonData(instanceData);
+	const selectedData = selectCharInstanceData(instanceData, type);
 
 	// A unique character key is generated combining the region, realm, and name
 	// This is used in multiple slices of the Redux store to retrieve cached data
@@ -45,7 +45,7 @@ export const fetchInstanceData = (id, oAuth, type) => async (dispatch) => {
 	const mediaData = await fetchRetry(
 		`https://us.api.blizzard.com/data/wow/media/journal-instance/${id}?namespace=static-us&locale=en_US&access_token=${oAuth}`
 	);
-	const selectedData = type === 'raid' ? selectRaidDetails(instanceData, mediaData) : selectDungeonDetails(instanceData, mediaData);
+	const selectedData =selectInstanceDetails(instanceData, mediaData);
 
 	dispatch(receiveInstanceDetails(selectedData, type));
 };

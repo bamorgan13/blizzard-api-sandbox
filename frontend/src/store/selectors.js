@@ -148,64 +148,6 @@ export function selectAvailableRealms(realmData) {
 	return availableRealms.sort((a, b) => (a.name < b.name ? -1 : 1));
 };
 
-export function selectCharRaidData(body) {
-	const raidData = {...expansionTemplate};
-	
-	// If a character has no raid data, Blizzard API still returns a successful 
-	// response of an object with basic character data instead of raid data.
-	// If this occurs, return the empty raidData object we created before trying 
-	// to unpack the non-existent raid data from the response.
-	if (!body.expansions) return raidData;
-
-	body.expansions.forEach((expansion) => {
-		const expansionData = {
-			name : expansion.expansion.name,
-			id: expansion.expansion.id,
-			instances : {}
-		};
-		
-		expansion.instances.forEach((instance) => {
-			const instanceData = {
-				name: instance.instance.name,
-				id: instance.instance.id,
-				modes: {}
-			}
-
-			instance.modes.forEach((mode) => {
-				const modeData = {
-					name: mode.difficulty.name,
-					status: mode.status.type,
-					progress: {
-						completed: mode.progress.completed_count,
-						total: mode.progress.total_count
-					}
-				};
-
-				instanceData.modes[mode.difficulty.name] = modeData;
-			})
-
-			expansionData.instances[instance.instance.name] = instanceData;
-		})
-
-		raidData[expansion.expansion.name] =  expansionData;
-	});
-	return raidData;
-};
-
-//  Strips, reformats, and combines raid details and media to relevent data
-export function selectRaidDetails(raidData, mediaData) {
-	return {
-		id: raidData.id,
-		name: raidData.name,
-		description: raidData.description,
-		wowheadTitle: formatWowheadInstanceTitle(raidData.name),
-		media: {
-			id: raidData.media.id,
-			href: mediaData.assets[0].value
-		}
-	};
-};
-
 function formatWowheadInstanceTitle(instanceName) {
 	// The Battle for Mount Hyjal is an exception for the Wowhead naming convention
 	// Return the correct article title immediately for it, otherwise convert with 
@@ -214,10 +156,16 @@ function formatWowheadInstanceTitle(instanceName) {
 	instanceName.toLowerCase().replaceAll(' ', '-').replaceAll(/'|,|!/g, '')
 }
 
-export function selectCharDungeonData(body) {
-	const dungeonData = {...expansionTemplate};
+// Strips raid or dungeon data (the 'type' provided) to relevent data, including 
+// the name, id, expansion, modes and their progress, and the number/latest kill
+export function selectCharInstanceData(body, type) {
+	const charInstanceData = {...expansionTemplate};
 	
-	if (!body.expansions) return dungeonData;
+	// If a character has no raid data, Blizzard API still returns a successful 
+	// response of an object with basic character data instead of raid data.
+	// If this occurs, return the empty raidData object we created before trying 
+	// to unpack the non-existent raid data from the response.
+	if (!body.expansions) return charInstanceData;
 
 	body.expansions.forEach((expansion) => {
 		const expansionData = {
@@ -237,9 +185,16 @@ export function selectCharDungeonData(body) {
 				const modeData = {
 					name: mode.difficulty.name,
 					status: mode.status.type[0] + mode.status.type.slice(1).toLowerCase(),
-					completedCount: mode.progress.encounters[0].completed_count,
-					lastKill: dateTimeTooltipFormat(mode.progress.encounters[0].last_kill_timestamp)
 				};
+				if (type === 'raid'){
+					modeData.progress = {
+						completed: mode.progress.completed_count,
+						total: mode.progress.total_count
+					}
+				} else if (type === 'dungeon') {
+					modeData.completedCount = mode.progress.encounters[0].completed_count;
+					modeData.lastKill = dateTimeTooltipFormat(mode.progress.encounters[0].last_kill_timestamp);
+				}
 
 				instanceData.modes[mode.difficulty.name] = modeData;
 			})
@@ -247,21 +202,20 @@ export function selectCharDungeonData(body) {
 			expansionData.instances[instance.instance.name] = instanceData;
 		})
 
-		dungeonData[expansion.expansion.name] =  expansionData;
+		charInstanceData[expansion.expansion.name] =  expansionData;
 	});
-	return dungeonData;
+	return charInstanceData;
 };
 
 //  Strips, reformats, and combines dungeon details and media to relevent data
-export function selectDungeonDetails(dungeonData, mediaData) {
-	console.log({dungeonData})
+export function selectInstanceDetails(instanceData, mediaData) {
 	return {
-		id: dungeonData.id,
-		name: dungeonData.name,
-		description: dungeonData.description,
-		wowheadTitle: formatWowheadInstanceTitle(dungeonData.name),
+		id: instanceData.id,
+		name: instanceData.name,
+		description: instanceData.description,
+		wowheadTitle: formatWowheadInstanceTitle(instanceData.name),
 		media: {
-			id: dungeonData.media.id,
+			id: instanceData.media.id,
 			href: mediaData.assets[0].value
 		}
 	};
