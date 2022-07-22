@@ -30,12 +30,18 @@
 			&.mount {
 				width: 30%;
 			}
-			&.raid {
+			&.raid, &.dungeon {
 				width: 100px;
 				height: 100px;
 				object-fit: fill;
 				border-radius: 50%;
 				border: 3px solid $darkbackground;
+
+				&:hover{
+					border-radius: 10%;
+					border-color: goldenrod;
+					transition: 1s;
+				}
 			}
 		}
 

@@ -1,3 +1,4 @@
+import { dateTimeTooltipFormat } from "../utility";
 import { expansionTemplate } from "./defaults";
 
 // Strips the large character and media objects down to data that will be used by the app
@@ -197,7 +198,7 @@ export function selectRaidDetails(raidData, mediaData) {
 		id: raidData.id,
 		name: raidData.name,
 		description: raidData.description,
-		wowheadTitle: formatWowheadRaidTitle(raidData.name),
+		wowheadTitle: formatWowheadInstanceTitle(raidData.name),
 		media: {
 			id: raidData.media.id,
 			href: mediaData.assets[0].value
@@ -205,10 +206,63 @@ export function selectRaidDetails(raidData, mediaData) {
 	};
 };
 
-function formatWowheadRaidTitle(raidName) {
+function formatWowheadInstanceTitle(instanceName) {
 	// The Battle for Mount Hyjal is an exception for the Wowhead naming convention
 	// Return the correct article title immediately for it, otherwise convert with 
 	// standard process, stripping ' and , and replacing spaces with -
-	return raidName === 'The Battle for Mount Hyjal' ? 'hyjal-summit' :
-	raidName.toLowerCase().replaceAll(' ', '-').replaceAll(/'|,/g, '')
+	return instanceName === 'The Battle for Mount Hyjal' ? 'hyjal-summit' :
+	instanceName.toLowerCase().replaceAll(' ', '-').replaceAll(/'|,|!/g, '')
 }
+
+export function selectCharDungeonData(body) {
+	const dungeonData = {...expansionTemplate};
+	
+	if (!body.expansions) return dungeonData;
+
+	body.expansions.forEach((expansion) => {
+		const expansionData = {
+			name : expansion.expansion.name,
+			id: expansion.expansion.id,
+			instances : {}
+		};
+		
+		expansion.instances.forEach((instance) => {
+			const instanceData = {
+				name: instance.instance.name,
+				id: instance.instance.id,
+				modes: {}
+			}
+
+			instance.modes.forEach((mode) => {
+				const modeData = {
+					name: mode.difficulty.name,
+					status: mode.status.type[0] + mode.status.type.slice(1).toLowerCase(),
+					completedCount: mode.progress.encounters[0].completed_count,
+					lastKill: dateTimeTooltipFormat(mode.progress.encounters[0].last_kill_timestamp)
+				};
+
+				instanceData.modes[mode.difficulty.name] = modeData;
+			})
+
+			expansionData.instances[instance.instance.name] = instanceData;
+		})
+
+		dungeonData[expansion.expansion.name] =  expansionData;
+	});
+	return dungeonData;
+};
+
+//  Strips, reformats, and combines dungeon details and media to relevent data
+export function selectDungeonDetails(dungeonData, mediaData) {
+	console.log({dungeonData})
+	return {
+		id: dungeonData.id,
+		name: dungeonData.name,
+		description: dungeonData.description,
+		wowheadTitle: formatWowheadInstanceTitle(dungeonData.name),
+		media: {
+			id: dungeonData.media.id,
+			href: mediaData.assets[0].value
+		}
+	};
+};

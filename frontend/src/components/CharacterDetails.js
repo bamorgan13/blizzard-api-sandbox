@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import '../styles/CharacterDetails.scss';
 import CharacterBasics from './CharacterBasics';
+import CharacterDungeons from './CharacterDungeons';
 import CharacterGear from './CharacterGear';
 import CharacterMounts from './CharacterMounts';
 import CharNotFound from './CharacterNotFound';
@@ -18,7 +19,8 @@ function CharacterDetails() {
 		gear: <CharacterGear />,
 		mounts: <CharacterMounts />,
 		pets: <CharacterPets />,
-		raids: <CharacterRaids />
+		raids: <CharacterRaids />,
+		dungeons: <CharacterDungeons />
 	};
 
 	// If a character has been fetched display its data
@@ -55,6 +57,12 @@ currentChar ? (
 						className={activeDetail === 'raids' ? 'border detail-select active' : 'border detail-select'}
 					>
 						Display Raids
+					</button>
+					<button
+						onClick={() => setActiveDetail('dungeons')}
+						className={activeDetail === 'dungeons' ? 'border detail-select active' : 'border detail-select'}
+					>
+						Display Dungeons
 					</button>
 				</nav>
 				{activeDetailMapping[activeDetail]}

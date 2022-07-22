@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRaids } from '../store/raids';
-import RaidExpansionDropdown from './RaidExpansionDropdown';
-import '../styles/CharacterRaids.scss'
+import ExpansionDropdown from './ExpansionDropdown';
+import '../styles/CharacterInstances.scss'
 
 function CharacterRaids() {
 	const dispatch = useDispatch();
@@ -22,12 +22,12 @@ function CharacterRaids() {
 	);
 
 	return (
-		<div className='raid-details border'>
+		<div className='instance-details border'>
 			<header>Raid Details</header>
 			{charRaids ? (
 				<ul>
           {Object.entries(charRaids).map(([expansionName, expansion]) => {
-            return <RaidExpansionDropdown expansion={expansion} expansionName={expansionName} key={expansionName} />
+            return <ExpansionDropdown expansion={expansion} expansionName={expansionName} type='raid' key={expansionName} />
           })}
 				</ul>
 			) : (

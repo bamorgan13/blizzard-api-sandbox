@@ -3,7 +3,7 @@ import ReactTooltip from '@huner2/react-tooltip';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRaidData } from '../store/raids';
 import '../styles/DetailIndexItem.scss';
-import '../styles/RaidInstanceIndexItem.scss';
+import '../styles/InstanceIndexItem.scss';
 
 function RaidInstanceIndexItem({ instance: { id, name, modes } }) {
 	const dispatch = useDispatch();
@@ -31,7 +31,7 @@ function RaidInstanceIndexItem({ instance: { id, name, modes } }) {
       }
       <p className='index-name'>{name}</p>
       {Object.entries(modes).map(([modeName, mode]) => {
-        return <p key={modeName} className={mode.status}>{modeName} - {mode.progress.completed}/{mode.progress.total}</p>
+        return <p key={modeName} className={mode.status.toLowerCase()}>{modeName} - {mode.progress.completed}/{mode.progress.total}</p>
       })}
     </div>
 	);
