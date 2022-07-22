@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import '../styles/CharacterDetails.scss';
 import CharacterBasics from './CharacterBasics';
-import CharacterDungeons from './CharacterDungeons';
 import CharacterGear from './CharacterGear';
 import CharacterMounts from './CharacterMounts';
 import CharNotFound from './CharacterNotFound';
 import CharacterPets from './CharacterPets';
-import CharacterRaids from './CharacterRaids';
+import CharacterInstances from './CharacterInstances';
 import Welcome from './Welcome';
 
 function CharacterDetails() {
@@ -19,8 +18,8 @@ function CharacterDetails() {
 		gear: <CharacterGear />,
 		mounts: <CharacterMounts />,
 		pets: <CharacterPets />,
-		raids: <CharacterRaids />,
-		dungeons: <CharacterDungeons />
+		raids: <CharacterInstances type='raid' />,
+		dungeons: <CharacterInstances type='dungeon' />
 	};
 
 	// If a character has been fetched display its data
