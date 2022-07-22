@@ -4,8 +4,7 @@ import { petReducer } from './pets';
 import { characterReducer } from './characters';
 import { gearReducer } from './gear';
 import { mountReducer } from './mounts';
-import { raidReducer } from './raids';
-import { dungeonReducer } from './dungeons';
+import { raidReducer, dungeonReducer } from './instances';
 
 import { sessionReducer } from './session';
 

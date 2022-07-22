@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactTooltip from '@huner2/react-tooltip';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDungeonData } from '../store/dungeons';
-import { fetchRaidData } from '../store/raids';
+import { fetchInstanceData } from '../store/instances';
 import fallbackIcon from '../images/logos/wow-icon.png';
 import '../styles/DetailIndexItem.scss';
 import '../styles/InstanceIndexItem.scss';
@@ -15,7 +14,7 @@ function InstanceIndexItem({ instance: { id, name, modes }, type}) {
 	useEffect(
 		() => {
 			if (!instance) {
-				dispatch(type === 'raid' ? fetchRaidData(id, oAuth) : fetchDungeonData(id, oAuth));
+				dispatch(fetchInstanceData(id, oAuth, type));
 			}
 		},
 		[ instance, type, id, oAuth, dispatch ]
@@ -27,7 +26,7 @@ function InstanceIndexItem({ instance: { id, name, modes }, type}) {
     console.error(`World of Warcraft Game Data API provided an invalid media link for ${name}. Using fallback WoW icon.`)
   }
 
-	// If we've fetched the additional dungeon data, we can show the media, otherwise
+	// If we've fetched the additional instance data, we can show the media, otherwise
 	// we use only have the basic data passed from props.
 	return (
     <div className='instance-container'>

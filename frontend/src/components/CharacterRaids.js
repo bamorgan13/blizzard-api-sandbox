@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRaids } from '../store/raids';
+import { fetchInstances } from '../store/instances';
 import ExpansionDropdown from './ExpansionDropdown';
 import '../styles/CharacterInstances.scss'
 
@@ -15,7 +15,7 @@ function CharacterRaids() {
 		() => {
 			// Prevents refetching of raids if already present in Redux store
 			if (!charRaids) {
-				dispatch(fetchRaids(currentChar.region, currentChar.realm.slug, currentChar.name.toLowerCase(), oAuth));
+				dispatch(fetchInstances(currentChar.region, currentChar.realm.slug, currentChar.name.toLowerCase(), oAuth, 'raid'));
 			}
 		},
 		[ dispatch, oAuth, currentChar, charRaids ]

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDungeons } from '../store/dungeons';
+import { fetchInstances } from '../store/instances';
 import ExpansionDropdown from './ExpansionDropdown';
 import '../styles/CharacterInstances.scss'
 
@@ -15,7 +15,7 @@ function CharacterDungeons() {
 		() => {
 			// Prevents refetching of dungeons if already present in Redux store
 			if (!charDungeons) {
-				dispatch(fetchDungeons(currentChar.region, currentChar.realm.slug, currentChar.name.toLowerCase(), oAuth));
+				dispatch(fetchInstances(currentChar.region, currentChar.realm.slug, currentChar.name.toLowerCase(), oAuth, 'dungeon'));
 			}
 		},
 		[ dispatch, oAuth, currentChar, charDungeons ]
