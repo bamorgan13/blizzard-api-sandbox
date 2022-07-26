@@ -148,12 +148,23 @@ export function selectAvailableRealms(realmData) {
 	return availableRealms.sort((a, b) => (a.name < b.name ? -1 : 1));
 };
 
+// Mappings of naming convention exceptions for Wowhead pages
+const instanceNameFormatExceptions = {
+	'The Battle for Mount Hyjal': 'hyjal-summit',
+	'Deadmines': 'the-deadmines',
+	'Eye of Azshara': 'eye-of-azshara-dungeon',
+	'Assault on Violet Hold': 'violet-hold',
+	'Seat of the Triumvirate': 'the-seat-of-the-triumvirate'
+}
+
 function formatWowheadInstanceTitle(instanceName) {
-	// The Battle for Mount Hyjal is an exception for the Wowhead naming convention
-	// Return the correct article title immediately for it, otherwise convert with 
-	// standard process, stripping ' and , and replacing spaces with -
-	return instanceName === 'The Battle for Mount Hyjal' ? 'hyjal-summit' :
-	instanceName.toLowerCase().replaceAll(' ', '-').replaceAll(/'|,|!/g, '')
+	// If the instance name has a Wowhead article naming convention exception, 
+	// return the correct article title immediately for it, otherwise convert with 
+	// standard process, stripping apostrophes('), exclamation points(!), 
+	// colons(:), and commas(,) and replacing spaces( ) with dashes(-)
+	if (instanceName in instanceNameFormatExceptions) return instanceNameFormatExceptions[instanceName];
+	
+	return instanceName.toLowerCase().replaceAll(' ', '-').replaceAll(/'|,|!|:/g, '');
 }
 
 // Strips raid or dungeon data (the 'type' provided) to relevent data, including 
