@@ -6,7 +6,7 @@ import CharacterGear from './CharacterGear';
 import CharacterMounts from './CharacterMounts';
 import CharNotFound from './CharacterNotFound';
 import CharacterPets from './CharacterPets';
-import CharacterRaids from './CharacterRaids';
+import CharacterInstances from './CharacterInstances';
 import Welcome from './Welcome';
 
 function CharacterDetails() {
@@ -18,7 +18,8 @@ function CharacterDetails() {
 		gear: <CharacterGear />,
 		mounts: <CharacterMounts />,
 		pets: <CharacterPets />,
-		raids: <CharacterRaids />
+		raids: <CharacterInstances type='raid' />,
+		dungeons: <CharacterInstances type='dungeon' />
 	};
 
 	// If a character has been fetched display its data
@@ -55,6 +56,12 @@ currentChar ? (
 						className={activeDetail === 'raids' ? 'border detail-select active' : 'border detail-select'}
 					>
 						Display Raids
+					</button>
+					<button
+						onClick={() => setActiveDetail('dungeons')}
+						className={activeDetail === 'dungeons' ? 'border detail-select active' : 'border detail-select'}
+					>
+						Display Dungeons
 					</button>
 				</nav>
 				{activeDetailMapping[activeDetail]}

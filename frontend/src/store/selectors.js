@@ -1,3 +1,4 @@
+import { dateTimeTooltipFormat } from "../utility";
 import { expansionTemplate } from "./defaults";
 
 // Strips the large character and media objects down to data that will be used by the app
@@ -147,14 +148,35 @@ export function selectAvailableRealms(realmData) {
 	return availableRealms.sort((a, b) => (a.name < b.name ? -1 : 1));
 };
 
-export function selectCharRaidData(body) {
-	const raidData = {...expansionTemplate};
+// Mappings of naming convention exceptions for Wowhead pages
+const instanceNameFormatExceptions = {
+	'The Battle for Mount Hyjal': 'hyjal-summit',
+	'Deadmines': 'the-deadmines',
+	'Eye of Azshara': 'eye-of-azshara-dungeon',
+	'Assault on Violet Hold': 'violet-hold',
+	'Seat of the Triumvirate': 'the-seat-of-the-triumvirate'
+}
+
+function formatWowheadInstanceTitle(instanceName) {
+	// If the instance name has a Wowhead article naming convention exception, 
+	// return the correct article title immediately for it, otherwise convert with 
+	// standard process, stripping apostrophes('), exclamation points(!), 
+	// colons(:), and commas(,) and replacing spaces( ) with dashes(-)
+	if (instanceName in instanceNameFormatExceptions) return instanceNameFormatExceptions[instanceName];
+	
+	return instanceName.toLowerCase().replaceAll(' ', '-').replaceAll(/'|,|!|:/g, '');
+}
+
+// Strips raid or dungeon data (the 'type' provided) to relevent data, including 
+// the name, id, expansion, modes and their progress, and the number/latest kill
+export function selectCharInstanceData(body, type) {
+	const charInstanceData = {...expansionTemplate};
 	
 	// If a character has no raid data, Blizzard API still returns a successful 
 	// response of an object with basic character data instead of raid data.
 	// If this occurs, return the empty raidData object we created before trying 
 	// to unpack the non-existent raid data from the response.
-	if (!body.expansions) return raidData;
+	if (!body.expansions) return charInstanceData;
 
 	body.expansions.forEach((expansion) => {
 		const expansionData = {
@@ -173,12 +195,17 @@ export function selectCharRaidData(body) {
 			instance.modes.forEach((mode) => {
 				const modeData = {
 					name: mode.difficulty.name,
-					status: mode.status.type,
-					progress: {
+					status: mode.status.type[0] + mode.status.type.slice(1).toLowerCase(),
+				};
+				if (type === 'raid'){
+					modeData.progress = {
 						completed: mode.progress.completed_count,
 						total: mode.progress.total_count
 					}
-				};
+				} else if (type === 'dungeon') {
+					modeData.completedCount = mode.progress.encounters[0].completed_count;
+					modeData.lastKill = dateTimeTooltipFormat(mode.progress.encounters[0].last_kill_timestamp);
+				}
 
 				instanceData.modes[mode.difficulty.name] = modeData;
 			})
@@ -186,29 +213,21 @@ export function selectCharRaidData(body) {
 			expansionData.instances[instance.instance.name] = instanceData;
 		})
 
-		raidData[expansion.expansion.name] =  expansionData;
+		charInstanceData[expansion.expansion.name] =  expansionData;
 	});
-	return raidData;
+	return charInstanceData;
 };
 
-//  Strips, reformats, and combines raid details and media to relevent data
-export function selectRaidDetails(raidData, mediaData) {
+//  Strips, reformats, and combines dungeon details and media to relevent data
+export function selectInstanceDetails(instanceData, mediaData) {
 	return {
-		id: raidData.id,
-		name: raidData.name,
-		description: raidData.description,
-		wowheadTitle: formatWowheadRaidTitle(raidData.name),
+		id: instanceData.id,
+		name: instanceData.name,
+		description: instanceData.description,
+		wowheadTitle: formatWowheadInstanceTitle(instanceData.name),
 		media: {
-			id: raidData.media.id,
+			id: instanceData.media.id,
 			href: mediaData.assets[0].value
 		}
 	};
 };
-
-function formatWowheadRaidTitle(raidName) {
-	// The Battle for Mount Hyjal is an exception for the Wowhead naming convention
-	// Return the correct article title immediately for it, otherwise convert with 
-	// standard process, stripping ' and , and replacing spaces with -
-	return raidName === 'The Battle for Mount Hyjal' ? 'hyjal-summit' :
-	raidName.toLowerCase().replaceAll(' ', '-').replaceAll(/'|,/g, '')
-}

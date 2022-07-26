@@ -4,7 +4,7 @@ import { petReducer } from './pets';
 import { characterReducer } from './characters';
 import { gearReducer } from './gear';
 import { mountReducer } from './mounts';
-import { raidReducer } from './raids';
+import { raidReducer, dungeonReducer } from './instances';
 
 import { sessionReducer } from './session';
 
@@ -14,7 +14,8 @@ const rootReducer = combineReducers({
 	gear: gearReducer,
 	mounts: mountReducer,
 	pets: petReducer,
-	raids: raidReducer
+	raids: raidReducer,
+	dungeons: dungeonReducer
 });
 
 let enhancer;

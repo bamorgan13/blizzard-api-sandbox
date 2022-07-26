@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons'
-import RaidInstanceIndexItem from './RaidInstanceIndexItem';
+import InstanceIndexItem from './InstanceIndexItem';
 
-function RaidExpansionDropdown({expansion, expansionName}) {
+function ExpansionDropdown({expansion, expansionName, type}) {
 	const [ isOpen, setIsOpen ] = useState(false);
 
   const caret = isOpen ? faCaretDown : faCaretRight;
@@ -18,16 +18,14 @@ function RaidExpansionDropdown({expansion, expansionName}) {
         { isOpen && ( expansion.instances ? 
           <div className='expansion-instance-container'>
             { 
-              Object.entries(expansion.instances).map(([instanceName, instance]) => {
-                return (
-                  <RaidInstanceIndexItem key={instanceName} instance={instance}/>
-                )
-              })
+              Object.entries(expansion.instances).map(([instanceName, instance]) => (
+                  <InstanceIndexItem key={instanceName} instance={instance} type={type}/>
+              ))
             }
           </div> 
           : 
           <div>
-            <p>No raid data for this expansion</p>
+            <p>No {type} data for this expansion</p>
           </div>
           )
         }
@@ -36,4 +34,4 @@ function RaidExpansionDropdown({expansion, expansionName}) {
 	)
 }
 
-export default RaidExpansionDropdown;
+export default ExpansionDropdown;
