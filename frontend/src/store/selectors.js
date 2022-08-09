@@ -1,3 +1,6 @@
+import { dateTimeTooltipFormat } from "../utility";
+import { expansionTemplate } from "./defaults";
+
 // Strips the large character and media objects down to data that will be used by the app
 export function selectCharInfo(region, charData, media) {
 	const assets = {};
@@ -22,7 +25,7 @@ export function selectCharInfo(region, charData, media) {
 		lastLogin: new Date(charData.last_login_timestamp).toLocaleString(),
 		assets
 	};
-}
+};
 
 // Returns an array of simplified character data for each item in charHistory
 // The simplified data is used to make history buttons in CharacterHistory component
@@ -38,7 +41,7 @@ export function selectIndexData(state) {
 			class: iteratingChar.class
 		};
 	});
-}
+};
 
 // Strips the large object of gear data to only that which will be used by the app
 export function selectGearData(body) {
@@ -52,7 +55,7 @@ export function selectGearData(body) {
 		};
 	});
 	return gearData;
-}
+};
 
 // Strips the large object of mount data to only that which will be used by the app
 export function selectCharMountData(body) {
@@ -61,10 +64,10 @@ export function selectCharMountData(body) {
 		name: mount.name,
 		is_useable
 	}));
-}
+};
 
 //  Strips, reformats, and combines mount details and media to relevent data
-export async function selectMountDetails(mountData, mediaData) {
+export function selectMountDetails(mountData, mediaData) {
 	return {
 		id: mountData.id,
 		name: mountData.name,
@@ -75,7 +78,7 @@ export async function selectMountDetails(mountData, mediaData) {
 			href: mediaData.assets[0].value
 		}
 	};
-}
+};
 
 // Strips the large object of pet data to only that which will be used by the app
 export function selectCharPetData(body) {
@@ -89,13 +92,13 @@ export function selectCharPetData(body) {
 		quality: pet.quality.name,
 		isFavorite: pet.is_favorite
 	}));
-}
+};
 
 // Strips, reformats, and combines pet details and media to relevent data
 // A defaultPet is created due to some requests for character pets results in 404s
 // from Blizzard API. If that data doesn't exist we still want to have the keys
 // present in our returned object.
-export async function selectPetDetails(petData, mediaData) {
+export function selectPetDetails(petData, mediaData) {
 	let selected = { ...defaultPet };
 	if (petData) {
 		selected = {
@@ -118,7 +121,7 @@ export async function selectPetDetails(petData, mediaData) {
 	}
 
 	return selected;
-}
+};
 
 const defaultPet = {
 	id: null,
@@ -143,4 +146,88 @@ export function selectAvailableRealms(realmData) {
 	availableRealms.push({ name: '--Select Realm--', slug: '' });
 	// Sort realms alphabetically by name instead of the default id
 	return availableRealms.sort((a, b) => (a.name < b.name ? -1 : 1));
+};
+
+// Mappings of naming convention exceptions for Wowhead pages
+const instanceNameFormatExceptions = {
+	'The Battle for Mount Hyjal': 'hyjal-summit',
+	'Deadmines': 'the-deadmines',
+	'Eye of Azshara': 'eye-of-azshara-dungeon',
+	'Assault on Violet Hold': 'violet-hold',
+	'Seat of the Triumvirate': 'the-seat-of-the-triumvirate'
 }
+
+function formatWowheadInstanceTitle(instanceName) {
+	// If the instance name has a Wowhead article naming convention exception, 
+	// return the correct article title immediately for it, otherwise convert with 
+	// standard process, stripping apostrophes('), exclamation points(!), 
+	// colons(:), and commas(,) and replacing spaces( ) with dashes(-)
+	if (instanceName in instanceNameFormatExceptions) return instanceNameFormatExceptions[instanceName];
+	
+	return instanceName.toLowerCase().replaceAll(' ', '-').replaceAll(/'|,|!|:/g, '');
+}
+
+// Strips raid or dungeon data (the 'type' provided) to relevent data, including 
+// the name, id, expansion, modes and their progress, and the number/latest kill
+export function selectCharInstanceData(body, type) {
+	const charInstanceData = {...expansionTemplate};
+	
+	// If a character has no raid data, Blizzard API still returns a successful 
+	// response of an object with basic character data instead of raid data.
+	// If this occurs, return the empty raidData object we created before trying 
+	// to unpack the non-existent raid data from the response.
+	if (!body.expansions) return charInstanceData;
+
+	body.expansions.forEach((expansion) => {
+		const expansionData = {
+			name : expansion.expansion.name,
+			id: expansion.expansion.id,
+			instances : {}
+		};
+		
+		expansion.instances.forEach((instance) => {
+			const instanceData = {
+				name: instance.instance.name,
+				id: instance.instance.id,
+				modes: {}
+			}
+
+			instance.modes.forEach((mode) => {
+				const modeData = {
+					name: mode.difficulty.name,
+					status: mode.status.type[0] + mode.status.type.slice(1).toLowerCase(),
+				};
+				if (type === 'raid'){
+					modeData.progress = {
+						completed: mode.progress.completed_count,
+						total: mode.progress.total_count
+					}
+				} else if (type === 'dungeon') {
+					modeData.completedCount = mode.progress.encounters[0].completed_count;
+					modeData.lastKill = dateTimeTooltipFormat(mode.progress.encounters[0].last_kill_timestamp);
+				}
+
+				instanceData.modes[mode.difficulty.name] = modeData;
+			})
+
+			expansionData.instances[instance.instance.name] = instanceData;
+		})
+
+		charInstanceData[expansion.expansion.name] =  expansionData;
+	});
+	return charInstanceData;
+};
+
+//  Strips, reformats, and combines dungeon details and media to relevent data
+export function selectInstanceDetails(instanceData, mediaData) {
+	return {
+		id: instanceData.id,
+		name: instanceData.name,
+		description: instanceData.description,
+		wowheadTitle: formatWowheadInstanceTitle(instanceData.name),
+		media: {
+			id: instanceData.media.id,
+			href: mediaData.assets[0].value
+		}
+	};
+};

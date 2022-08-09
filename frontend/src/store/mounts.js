@@ -50,14 +50,13 @@ export const fetchMountData = (id, oAuth) => async (dispatch) => {
 	const mountData = await fetchRetry(
 		`https://us.api.blizzard.com/data/wow/mount/${id}?namespace=static-us&locale=en_US&access_token=${oAuth}`
 	);
-	// const mountData = await mountRes.json();
 
 	const mediaData = await fetchRetry(
 		`https://us.api.blizzard.com/data/wow/media/creature-display/${mountData.creature_displays[0]
 			.id}?namespace=static-us&locale=en_US&access_token=${oAuth}`
 	);
-	// const mediaData = await mediaRes.json();
-	const selectedData = await selectMountDetails(mountData, mediaData);
+	
+	const selectedData = selectMountDetails(mountData, mediaData);
 
 	dispatch(receiveMountDetails(selectedData));
 };

@@ -16,12 +16,15 @@
 
 		.detail-select-nav {
 			font-size: 18px;
-			height: 30px;
+			height: min-content;
 			width: 70%;
 			margin-top: 5px;
 			display: flex;
 			flex-direction: row;
 			justify-content: center;
+			flex-wrap: wrap;
+			// flex-grow: 1;
+
 			button {
 				background-color: $midbackground;
 				color: white;

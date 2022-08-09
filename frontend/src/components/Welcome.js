@@ -29,8 +29,9 @@ function Welcome() {
 				<ul className='future-capabilities'>
 					<li className='completed'>Collection information, such as pets and mounts (Completed!)</li>
 					<li className='completed'>Flask backend to support developer key security (Completed!)</li>
-					<li>Character raid progression</li>
-					<li>Character dungeon and mythic+ data</li>
+					<li className='completed'>Character raid progression (Completed!)</li>
+					<li className='completed'>Character dungeon progression (Completed!)</li>
+					<li>Character dungeon mythic+ data</li>
 					<li>User account creation, database storage, and saving of characters</li>
 				</ul>
 			</div>

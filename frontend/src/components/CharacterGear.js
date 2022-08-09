@@ -28,7 +28,7 @@ function CharacterGear() {
 					return (
 						<p key={slot}>
 							{slot}:{' '}
-							<a href={`https://www.wowhead.com/item=${data.id}&ilvl=${data.ilvl}`} className={data.quality}>
+							<a href={`https://www.wowhead.com/item=${data.id}&ilvl=${data.ilvl}`} target='_blank' rel='noreferrer' className={data.quality}>
 								{`${data.name} (${data.ilvl})`}
 							</a>
 						</p>
