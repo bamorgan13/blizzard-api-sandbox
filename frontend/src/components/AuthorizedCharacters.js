@@ -4,16 +4,16 @@ import { selectIndexData } from '../store/selectors';
 import { setCurrentChar } from '../store/session';
 import '../styles/CharacterHistory.scss';
 
-// CharacterHistory creates buttons for each previously viewed character,
+// AuthorizedCharacters creates buttons for each previously viewed character,
 // allowing for easily displaying cached content without requiring a refetch
-function CharacterHistory() {
+function AuthorizedCharacters() {
 	const dispatch = useDispatch();
-	const previousChars = useSelector((state) => selectIndexData(state.session.charHistory, state.characters));
+	const authorizedCharacters = useSelector((state) => selectIndexData(state.session.authorizedChars, state.characters));
 	return (
 		<div className='char-history'>
-			<h3>Previously Viewed</h3>
+			<h3>Account Characters</h3>
 			<ul className='char-history-list'>
-				{previousChars.map((char) => (
+				{authorizedCharacters.map((char) => (
 					<li key={char.charKey} className='char-history-list-item'>
 						<button className='border' onClick={() => dispatch(setCurrentChar(char.charKey))}>
 							<img src={char.avatarHref} alt={`${char.name} avatar`} />
@@ -33,4 +33,4 @@ function CharacterHistory() {
 	);
 }
 
-export default CharacterHistory;
+export default AuthorizedCharacters;

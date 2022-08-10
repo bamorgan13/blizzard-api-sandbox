@@ -1,0 +1,721 @@
+{
+    "_links": {
+        "self": {
+            "href": "https://us.api.blizzard.com/profile/user/wow?namespace=profile-us"
+        },
+        "user": {
+            "href": "https://us.api.blizzard.com/profile/user"
+        },
+        "profile": {
+            "href": "https://us.api.blizzard.com/profile/user/wow?namespace=profile-us"
+        }
+    },
+    "id": 67007514,
+    "wow_accounts": [
+        {
+            "id": 98482347,
+            "characters": [
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/terenas/rellis?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/90-lu?namespace=profile-us"
+                    },
+                    "name": "Rellis",
+                    "id": 166396995,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/90?namespace=dynamic-us"
+                        },
+                        "name": "Terenas",
+                        "id": 90,
+                        "slug": "terenas"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/5?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Priest",
+                        "id": 5
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/11?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Draenei",
+                        "id": 11
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "ALLIANCE",
+                        "name": "Alliance"
+                    },
+                    "level": 7
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/terenas/zelrod?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/90-lu?namespace=profile-us"
+                    },
+                    "name": "Zelrod",
+                    "id": 166415895,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/90?namespace=dynamic-us"
+                        },
+                        "name": "Terenas",
+                        "id": 90,
+                        "slug": "terenas"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/9?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Warlock",
+                        "id": 9
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/7?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Gnome",
+                        "id": 7
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "ALLIANCE",
+                        "name": "Alliance"
+                    },
+                    "level": 45
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/terenas/taladir?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/90-lu?namespace=profile-us"
+                    },
+                    "name": "Taladir",
+                    "id": 166423494,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/90?namespace=dynamic-us"
+                        },
+                        "name": "Terenas",
+                        "id": 90,
+                        "slug": "terenas"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/8?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Mage",
+                        "id": 8
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/4?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Night Elf",
+                        "id": 4
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "ALLIANCE",
+                        "name": "Alliance"
+                    },
+                    "level": 21
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/terenas/hanle?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/90-lu?namespace=profile-us"
+                    },
+                    "name": "Hanle",
+                    "id": 166438270,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/90?namespace=dynamic-us"
+                        },
+                        "name": "Terenas",
+                        "id": 90,
+                        "slug": "terenas"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/10?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Monk",
+                        "id": 10
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/1?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Human",
+                        "id": 1
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "ALLIANCE",
+                        "name": "Alliance"
+                    },
+                    "level": 35
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/terenas/olaffe?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/90-lu?namespace=profile-us"
+                    },
+                    "name": "Olaffe",
+                    "id": 166489162,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/90?namespace=dynamic-us"
+                        },
+                        "name": "Terenas",
+                        "id": 90,
+                        "slug": "terenas"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/2?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Paladin",
+                        "id": 2
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/3?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Dwarf",
+                        "id": 3
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "ALLIANCE",
+                        "name": "Alliance"
+                    },
+                    "level": 35
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/terenas/luthus?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/90-lu?namespace=profile-us"
+                    },
+                    "name": "Luthus",
+                    "id": 166528238,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/90?namespace=dynamic-us"
+                        },
+                        "name": "Terenas",
+                        "id": 90,
+                        "slug": "terenas"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/1?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Warrior",
+                        "id": 1
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/29?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Void Elf",
+                        "id": 29
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "ALLIANCE",
+                        "name": "Alliance"
+                    },
+                    "level": 16
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/zuljin/inkal?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/61-lu?namespace=profile-us"
+                    },
+                    "name": "Inkal",
+                    "id": 190617051,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/61?namespace=dynamic-us"
+                        },
+                        "name": "Zul'jin",
+                        "id": 61,
+                        "slug": "zuljin"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/5?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Priest",
+                        "id": 5
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/9?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Goblin",
+                        "id": 9
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "HORDE",
+                        "name": "Horde"
+                    },
+                    "level": 14
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/zuljin/maghro?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/61-lu?namespace=profile-us"
+                    },
+                    "name": "Maghro",
+                    "id": 190789487,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/61?namespace=dynamic-us"
+                        },
+                        "name": "Zul'jin",
+                        "id": 61,
+                        "slug": "zuljin"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/3?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Hunter",
+                        "id": 3
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/2?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Orc",
+                        "id": 2
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "HORDE",
+                        "name": "Horde"
+                    },
+                    "level": 60
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/zuljin/arnzarn?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/61-lu?namespace=profile-us"
+                    },
+                    "name": "Arnzarn",
+                    "id": 191309937,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/61?namespace=dynamic-us"
+                        },
+                        "name": "Zul'jin",
+                        "id": 61,
+                        "slug": "zuljin"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/10?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Monk",
+                        "id": 10
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/8?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Troll",
+                        "id": 8
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "HORDE",
+                        "name": "Horde"
+                    },
+                    "level": 50
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/zuljin/pesteil?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/61-lu?namespace=profile-us"
+                    },
+                    "name": "Pesteil",
+                    "id": 191313780,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/61?namespace=dynamic-us"
+                        },
+                        "name": "Zul'jin",
+                        "id": 61,
+                        "slug": "zuljin"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/9?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Warlock",
+                        "id": 9
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/27?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Nightborne",
+                        "id": 27
+                    },
+                    "gender": {
+                        "type": "FEMALE",
+                        "name": "Female"
+                    },
+                    "faction": {
+                        "type": "HORDE",
+                        "name": "Horde"
+                    },
+                    "level": 60
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/zuljin/mulegar?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/61-lu?namespace=profile-us"
+                    },
+                    "name": "Mulegar",
+                    "id": 192921065,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/61?namespace=dynamic-us"
+                        },
+                        "name": "Zul'jin",
+                        "id": 61,
+                        "slug": "zuljin"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/7?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Shaman",
+                        "id": 7
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/28?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Highmountain Tauren",
+                        "id": 28
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "HORDE",
+                        "name": "Horde"
+                    },
+                    "level": 50
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/zuljin/likcolo?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/61-lu?namespace=profile-us"
+                    },
+                    "name": "Likcolo",
+                    "id": 231163538,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/61?namespace=dynamic-us"
+                        },
+                        "name": "Zul'jin",
+                        "id": 61,
+                        "slug": "zuljin"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/1?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Warrior",
+                        "id": 1
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/31?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Zandalari Troll",
+                        "id": 31
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "HORDE",
+                        "name": "Horde"
+                    },
+                    "level": 10
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/zuljin/ralanzo?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/61-lu?namespace=profile-us"
+                    },
+                    "name": "Ralanzo",
+                    "id": 232906097,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/61?namespace=dynamic-us"
+                        },
+                        "name": "Zul'jin",
+                        "id": 61,
+                        "slug": "zuljin"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/4?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Rogue",
+                        "id": 4
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/35?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Vulpera",
+                        "id": 35
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "HORDE",
+                        "name": "Horde"
+                    },
+                    "level": 60
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/zuljin/kylenno?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/61-lu?namespace=profile-us"
+                    },
+                    "name": "Kylenno",
+                    "id": 233120629,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/61?namespace=dynamic-us"
+                        },
+                        "name": "Zul'jin",
+                        "id": 61,
+                        "slug": "zuljin"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/6?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Death Knight",
+                        "id": 6
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/35?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Vulpera",
+                        "id": 35
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "HORDE",
+                        "name": "Horde"
+                    },
+                    "level": 24
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/zuljin/sathreyal?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/61-lu?namespace=profile-us"
+                    },
+                    "name": "Sathreyal",
+                    "id": 233120672,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/61?namespace=dynamic-us"
+                        },
+                        "name": "Zul'jin",
+                        "id": 61,
+                        "slug": "zuljin"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/12?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Demon Hunter",
+                        "id": 12
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/10?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Blood Elf",
+                        "id": 10
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "HORDE",
+                        "name": "Horde"
+                    },
+                    "level": 50
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/zuljin/likkotal?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/61-lu?namespace=profile-us"
+                    },
+                    "name": "Likkotal",
+                    "id": 233120716,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/61?namespace=dynamic-us"
+                        },
+                        "name": "Zul'jin",
+                        "id": 61,
+                        "slug": "zuljin"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/11?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Druid",
+                        "id": 11
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/31?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Zandalari Troll",
+                        "id": 31
+                    },
+                    "gender": {
+                        "type": "FEMALE",
+                        "name": "Female"
+                    },
+                    "faction": {
+                        "type": "HORDE",
+                        "name": "Horde"
+                    },
+                    "level": 60
+                },
+                {
+                    "character": {
+                        "href": "https://us.api.blizzard.com/profile/wow/character/drenden/tonderie?namespace=profile-us"
+                    },
+                    "protected_character": {
+                        "href": "https://us.api.blizzard.com/profile/user/wow/protected-character/1377-lu?namespace=profile-us"
+                    },
+                    "name": "Tonderie",
+                    "id": 145754626,
+                    "realm": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/realm/1377?namespace=dynamic-us"
+                        },
+                        "name": "Drenden",
+                        "id": 1377,
+                        "slug": "drenden"
+                    },
+                    "playable_class": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-class/4?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Rogue",
+                        "id": 4
+                    },
+                    "playable_race": {
+                        "key": {
+                            "href": "https://us.api.blizzard.com/data/wow/playable-race/5?namespace=static-9.2.5_43810-us"
+                        },
+                        "name": "Undead",
+                        "id": 5
+                    },
+                    "gender": {
+                        "type": "MALE",
+                        "name": "Male"
+                    },
+                    "faction": {
+                        "type": "HORDE",
+                        "name": "Horde"
+                    },
+                    "level": 1
+                }
+            ]
+        }
+    ],
+    "collections": {
+        "href": "https://us.api.blizzard.com/profile/user/wow/collections?namespace=profile-us"
+    }
+}

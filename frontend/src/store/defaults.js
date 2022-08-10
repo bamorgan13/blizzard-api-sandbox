@@ -105,10 +105,20 @@ export const defaultRaids = {
 	bryce_morgan: {...expansionTemplate}
 }
 
+export const defaultSession = {
+	charHistory: [],
+	currentChar: null,
+	oAuth: null,
+	authorizedChars: [],
+	scope: null,
+	idToken: null
+}
+
 export const defaultStore = { 
 	characters: defaultChar, 
 	gear: defaultGear, 
 	mounts: defaultMounts, 
 	pets: defaultPets ,
-	raids: defaultRaids
+	raids: defaultRaids,
+	session: defaultSession
 };
