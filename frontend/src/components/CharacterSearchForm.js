@@ -96,7 +96,6 @@ function CharacterSearchForm() {
 			</div>
 			<input type='submit' value='Retrieve Character' />
 			<button onClick={fetchRandom}>Random Character</button>
-			<a href={`https://oauth.battle.net/authorize?client_id=720e0cff60924f55b9685927ba82d7c8&scope=${encodeURIComponent('openid wow.profile')}&response_type=code&redirect_uri=https://localhost:3000/`}>Login with Battle.net</a>
 		</form>
 	);
 }

@@ -41,24 +41,33 @@ def inject_csrf_token(response):
 def blizz_auth():
     url = 'https://us.battle.net/oauth/token'
 
+
+    redirect_uri =  os.environ.get('REDIRECT_URI_PRODUCTION') if os.environ.get('FLASK_ENV') == 'production' else os.environ.get('REDIRECT_URI_DEVELOPMENT')
     client_id = os.environ.get('BLIZZ_CLIENT_ID')
     client_secret = os.environ.get('BLIZZ_CLIENT_SECRET')
     auth_code = request.args.get('code')
 
+
     payload = {
-        'redirect_uri': 'https://localhost:3000/',
+        'redirect_uri': redirect_uri,
         'scope': 'openid wow.profile',
         'grant_type': 'authorization_code',
         'code': auth_code
     } if auth_code else {'grant_type': 'client_credentials'}
 
-
-
     res = requests.post(url, auth=requests.auth.HTTPBasicAuth(client_id, client_secret), data=payload)
 
     parsed = res.json()
 
-    return parsed
+    if 'scope' in parsed:
+        access_token = parsed['access_token']
+        account_res = requests.get(f'https://us.battle.net/oauth/userinfo?access_token={access_token}')
+        account_res_parsed = account_res.json()
+        account_name = account_res_parsed['battletag']
+        parsed['account_name'] = account_name
+        return parsed
+    else:
+        return parsed
 
 
 @app.route('/', defaults={'path': ''})

@@ -15,6 +15,7 @@ function App() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const code = searchParams.get('code')
 	const authorizedChars = useSelector((state) => state.session.authorizedChars);
+	const authorized = useSelector((state) => state.session.authorized);
 	const authScope = useSelector((state) => state.session.scope);
 	const oAuth = useSelector((state) => state.session.oAuth);
 
@@ -27,9 +28,10 @@ function App() {
 				if (code) {
 					const res = await fetch(`/blizz_auth?code=${code}`);
 					const parsed = await res.json();
-					const {access_token, scope, id_token} = parsed;
+					const {access_token, scope, id_token, account_name} = parsed;
 					if (access_token) {
-						dispatch(setAuthorizedToken({access_token, scope, id_token}));
+						dispatch(setAuthorizedToken({access_token, scope, id_token, account_name}));
+						setSearchParams({})
 						return;
 					}
 				}
@@ -39,7 +41,7 @@ function App() {
 			}
 			authorize();
 		},
-		[ dispatch, code ]
+		[ setSearchParams, dispatch, code ]
 	);
 	
 	// Retrieve oAuth access token on initial app load
@@ -57,10 +59,10 @@ function App() {
 		<div className='app'>
 			<Header />
 			<div className='main-content'>
-				<nav>
+				<nav className='character-nav'>
 					<CharacterSearchForm />
 					<CharacterHistory />
-					{authorizedChars.length && <AuthorizedCharacters />}
+					{ authorized && <AuthorizedCharacters /> }
 				</nav>
 				<CharacterDetails />
 			</div>

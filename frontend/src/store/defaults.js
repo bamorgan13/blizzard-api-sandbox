@@ -111,7 +111,9 @@ export const defaultSession = {
 	oAuth: null,
 	authorizedChars: [],
 	scope: null,
-	idToken: null
+	idToken: null,
+	authorized: false,
+	accountName: null
 }
 
 export const defaultStore = { 

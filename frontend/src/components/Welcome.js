@@ -40,10 +40,10 @@ function Welcome() {
 				<p>A huge thank you to Blizzard and Wowhead for providing the tools to make this app possible!</p>
 				<div className='images-block'>
 					<div className='images-container'>
-						<a href='https://www.blizzard.com'>
+						<a href='https://www.blizzard.com' target='_blank' rel='noreferrer'>
 							<img className='welcome-logo' src={blizzard} alt='Blizzard' />
 						</a>
-						<a href='https://www.wowhead.com'>
+						<a href='https://www.wowhead.com' target='_blank' rel='noreferrer'>
 							<img className='welcome-logo' src={wowhead} alt='Wowhead' />
 						</a>
 					</div>

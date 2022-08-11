@@ -1,9 +1,10 @@
 import { RECEIVE_AUTHORIZED_CHARACTERS, RECEIVE_CHARACTER, SET_CHAR_NOT_FOUND } from './characters';
 
-export const SET_CURRENT_CHAR = 'SET_CURRENT_CHAR';
-export const SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN';
-export const CLEAR_ACTIVE_CHAR = 'CLEAR_ACTIVE_CHAR';
-export const SET_AUTHORIZED_TOKEN = 'SET_AUTHORIZED_TOKEN';
+const SET_CURRENT_CHAR = 'SET_CURRENT_CHAR';
+const SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN';
+const CLEAR_ACTIVE_CHAR = 'CLEAR_ACTIVE_CHAR';
+const SET_AUTHORIZED_TOKEN = 'SET_AUTHORIZED_TOKEN';
+const REMOVE_AUTHORIZED_TOKEN = 'REMOVE_AUTHORIZED_TOKEN';
 
 export const setCurrentChar = (key) => {
 	return {
@@ -32,6 +33,12 @@ export const setAuthorizedToken = (authorization) => {
 	}
 }
 
+export const removeAuthorizedToken = () => {
+	return {
+		type: REMOVE_AUTHORIZED_TOKEN
+	}
+}
+
 export const sessionReducer = (state = { currentChar: null, charHistory: [], oAuth: null }, action) => {
 	let filteredHistory;
 	switch (action.type) {
@@ -51,9 +58,11 @@ export const sessionReducer = (state = { currentChar: null, charHistory: [], oAu
 		case SET_ACCESS_TOKEN:
 			return { ...state, oAuth: action.token };
 		case SET_AUTHORIZED_TOKEN:
-			return { ...state, oAuth: action.authorization.access_token, scope: action.authorization.scope, idToken: action.authorization.id_token }
+			return { ...state, oAuth: action.authorization.access_token, scope: action.authorization.scope, idToken: action.authorization.id_token, authorized: true, accountName: action.authorization.account_name }
+		case REMOVE_AUTHORIZED_TOKEN:
+			return { ...state, oAuth: null, scope: null, idToken: null, authorized: false, accountName: null }
 		case RECEIVE_AUTHORIZED_CHARACTERS:
-			return { ...state, authorizedChars: Object.keys(action.characters)};
+			return { ...state, authorizedChars: Object.keys(action.characters).sort()};
 		default:
 			return state;
 	}

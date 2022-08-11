@@ -3,7 +3,7 @@
 .welcome {
 	width: 80%;
 	height: min-content;
-	padding-left: 10px;
+	padding: 0 10px;
 	background-color: grey;
 	border-radius: 2px;
 	display: flex;
@@ -43,18 +43,19 @@
 		justify-content: center;
 		.images-container {
 			flex-direction: row;
-			justify-content: center;
+			justify-content: space-evenly;
 
 			a {
 				display: flex;
 				align-items: center;
+				max-width: 40%;
+				flex: 1 1 auto;
+				margin: 0 20px;
 			}
 
 			.welcome-logo {
-				width: 300px;
 				height: auto;
 				object-fit: contain;
-				margin: 0 30px;
 			}
 		}
 		footer {

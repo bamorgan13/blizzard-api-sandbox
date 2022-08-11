@@ -1,9 +1,11 @@
 @import './variables.scss';
 
 .char-history {
-	width: 100%;
-	height: calc(100% - 135px);
+	width: 95%;
+	height: 40%;
+	flex: 1 1 auto;
 	padding: 5px 0;
+	margin-bottom: 5px;
 
 	h3 {
 		font-size: 24px;
@@ -13,10 +15,10 @@
 
 	ul {
 		@include scrollbars;
+		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
-		max-height: calc(100% - 20px);
-		overflow-y: auto;
+		height: calc(100% - 30px);
 
 		button {
 			display: flex;
@@ -35,6 +37,9 @@
 			.index-details {
 				margin-left: 5px;
 				z-index: 2;
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
 			}
 
 			p {

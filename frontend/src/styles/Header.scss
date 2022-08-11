@@ -19,10 +19,12 @@
 		}
 	}
 
-	.header-spacer {
+	.header-auth-link {
 		margin-left: 40px;
 		margin-right: auto;
 		width: 450px;
+		min-width: fit-content;
+		color: white;
 	}
 }
 

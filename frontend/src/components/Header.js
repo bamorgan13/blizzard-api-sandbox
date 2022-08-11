@@ -1,15 +1,23 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ReactTooltip from '@huner2/react-tooltip';
 import { clearActiveChar } from '../store/session';
 import '../styles/Header.scss';
 
 function Header() {
 	const dispatch = useDispatch();
+	const authorized = useSelector((state) => state.session.authorized);
+	const accountName = useSelector((state) => state.session.accountName);
+
+	const redirectURI = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_REDIRECT_URI_PRODUCTION : process.env.REACT_APP_REDIRECT_URI_DEVELOPMENT;
 
 	return (
 		<header className='app-header'>
-			<div className='header-spacer' />
+			{
+				authorized ? 
+					<a className='header-auth-link' href={`https://battle.net/login/logout?ref=${redirectURI}`}>Logout {accountName}</a>
+					: <a className='header-auth-link' href={`https://oauth.battle.net/authorize?client_id=720e0cff60924f55b9685927ba82d7c8&scope=${encodeURIComponent('openid wow.profile')}&response_type=code&redirect_uri=${redirectURI}`}>Login with Battle.net</a>
+			}
 			<h1
 				data-tip='Return to Welcome Screen'
 				onClick={() => {
