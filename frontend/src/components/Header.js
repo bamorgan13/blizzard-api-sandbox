@@ -9,7 +9,7 @@ function Header() {
 	const authorized = useSelector((state) => state.session.authorized);
 	const accountName = useSelector((state) => state.session.accountName);
 
-	const redirectURI = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_REDIRECT_URI_PRODUCTION : process.env.REACT_APP_REDIRECT_URI_DEVELOPMENT;
+	const redirectURI = process.env.REACT_APP_BASE_URL;
 
 	return (
 		<header className='app-header'>
