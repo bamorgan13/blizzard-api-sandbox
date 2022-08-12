@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCharPets } from '../store/pets';
 import PetIndexItem from './PetIndexItem';
 import '../styles/CharacterPets.scss';
+import LoadingEye from './LoadingEye';
 
 // Used to make comparisons when sorting pets
 const QUALITY_SORT_MAP = {
@@ -141,7 +142,7 @@ function CharacterPets() {
 				</ul>
 				</>
 			) : (
-				<p>Fetching Pets...</p>
+        <LoadingEye loadingMessage='Fetching Pets...' />
 			)}
 		</div>
 	);

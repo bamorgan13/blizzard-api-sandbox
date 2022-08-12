@@ -2,33 +2,39 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectIndexData } from '../store/selectors';
 import { setCurrentChar } from '../store/session';
-import '../styles/CharacterHistory.scss';
+import '../styles/CharacterIndex.scss';
+import LoadingEye from './LoadingEye';
 
-// AuthorizedCharacters creates buttons for each previously viewed character,
-// allowing for easily displaying cached content without requiring a refetch
-function AuthorizedCharacters() {
+// AuthorizedCharacters creates buttons for each character associated with the 
+// logged in user's Battle.net account
+function AuthorizedCharacters({loadingAuthChars}) {
 	const dispatch = useDispatch();
 	const authorizedCharacters = useSelector((state) => selectIndexData(state.session.authorizedChars, state.characters));
 	return (
-		<div className='char-history'>
+		<div className='char-index'>
 			<h3>Account Characters</h3>
-			<ul className='char-history-list'>
-				{authorizedCharacters.map((char) => (
-					<li key={char.charKey} className='char-history-list-item'>
-						<button className='border' onClick={() => dispatch(setCurrentChar(char.charKey))}>
-							<img src={char.avatarHref} alt={`${char.name} avatar`} />
-							<div className='index-details'>
-								<p className={char.class}>
-									{char.name} - {char.class}
-								</p>
-								<p>
-									{char.realm} - {char.region.toUpperCase()}
-								</p>
-							</div>
-						</button>
-					</li>
-				))}
-			</ul>
+			{
+				loadingAuthChars ? 
+					<LoadingEye loadingMessage='Fetching Account Characters...' />
+					:
+					<ul className='char-index-list'>
+						{authorizedCharacters.map((char) => (
+							<li key={char.charKey} className='char-index-list-item'>
+								<button className='border' onClick={() => dispatch(setCurrentChar(char.charKey))}>
+									<img src={char.avatarHref} alt={`${char.name} avatar`} />
+									<div className='index-details'>
+										<p className={char.class}>
+											{char.name} - {char.class}
+										</p>
+										<p>
+											{char.realm} - {char.region.toUpperCase()}
+										</p>
+									</div>
+								</button>
+							</li>
+						))}
+					</ul>
+			}
 		</div>
 	);
 }

@@ -24,7 +24,7 @@ function Header() {
 					dispatch(clearActiveChar());
 				}}
 			>
-				Blizz Sandbox - Wowhead Demo
+				Blizzard API Sandbox
 			</h1>
 			<ul className='header-links-list'>
 				<li>

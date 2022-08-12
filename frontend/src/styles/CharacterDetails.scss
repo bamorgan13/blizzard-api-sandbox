@@ -27,6 +27,7 @@
 			flex-wrap: wrap;
 
 			button {
+				min-width: fit-content;
 				background-color: $midbackground;
 				color: white;
 				padding: 2px 5px;

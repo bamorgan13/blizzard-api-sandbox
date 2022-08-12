@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import AuthorizedCharacters from './components/AuthorizedCharacters';
@@ -18,6 +18,7 @@ function App() {
 	const authorized = useSelector((state) => state.session.authorized);
 	const authScope = useSelector((state) => state.session.scope);
 	const oAuth = useSelector((state) => state.session.oAuth);
+	const [loadingAuthChars, setLoadingAuthChars] = useState(false);
 
 
 	// Retrieve oAuth access token on initial app load
@@ -35,22 +36,28 @@ function App() {
 						return;
 					}
 				}
-				const res = await fetch('/blizz_auth');
-				const parsed = await res.json();
-				dispatch(setToken(parsed.access_token));
+				if (!authorized){
+					const res = await fetch('/blizz_auth');
+					const parsed = await res.json();
+					dispatch(setToken(parsed.access_token));
+				}
 			}
 			authorize();
 		},
-		[ setSearchParams, dispatch, code ]
+		[ setSearchParams, dispatch, code, authorized ]
 	);
 	
-	// Retrieve oAuth access token on initial app load
-	// Request routed to python server to protect Blizzard credentials
+	// Fetch the logged in account's characters
 	useEffect(
 		() => {
-			if (authScope?.includes('wow.profile') && !authorizedChars.length){
-				dispatch(fetchAuthorizedChars(oAuth));
+			async function fetchAccountChars() {
+				if (authScope?.includes('wow.profile') && !authorizedChars.length){
+					setLoadingAuthChars(true);
+					await dispatch(fetchAuthorizedChars(oAuth));
+					setLoadingAuthChars(false);
+				}
 			}
+			fetchAccountChars();
 		},
 		[ dispatch, authScope, authorizedChars, oAuth ]
 	);
@@ -62,7 +69,7 @@ function App() {
 				<nav className='character-nav'>
 					<CharacterSearchForm />
 					<CharacterHistory />
-					{ authorized && <AuthorizedCharacters /> }
+					{ authorized && <AuthorizedCharacters loadingAuthChars={loadingAuthChars}/> }
 				</nav>
 				<CharacterDetails />
 			</div>

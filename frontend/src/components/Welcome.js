@@ -10,8 +10,8 @@ function Welcome() {
 			<div className='intro'>
 				<h3>Thanks for checking out the Blizzard API Sandbox!</h3>
 				<p>
-					The purpose of this application is to provide a quick demonstration of interfacing with the Blizzard API as
-					well as incorporating Wowhead tooltips.
+					The purpose of this application is to interface with the Blizzard World of Warcraft Game Data and Profile APIs as
+					well as incorporate Wowhead tooltips.
 				</p>
 				<br />
 				<p>This app is currently able to:</p>
@@ -19,20 +19,20 @@ function Welcome() {
 					<li>Fetch realm data based off of selected region</li>
 					<li>Fetch basic character information, such as level, class, avatar, etc.</li>
 					<li>Display currently equipped gear, with Wowhead tooltips for each piece</li>
-					<li>Cache previously retrieved character and equipment data to prevent unnecessary requests</li>
 					<li>Display history of viewed characters to aid in caching demonstration</li>
+					<li>Display collection information, including pets and mounts</li>
+					<li>Display instance progression for raids and dungeons</li>
+					<li>Log in with Battle.net OAuth to retrieve account characters</li>
+					<li>Cache previously retrieved character and equipment data to prevent unnecessary requests</li>
+					<li>Obscure developer keys behind a Flask backend</li>
 				</ul>
 			</div>
 
 			<div className='future'>
-				<p>Future plans for the app include displaying such data as:</p>
+				<p>Future plans for the app include:</p>
 				<ul className='future-capabilities'>
-					<li className='completed'>Collection information, such as pets and mounts (Completed!)</li>
-					<li className='completed'>Flask backend to support developer key security (Completed!)</li>
-					<li className='completed'>Character raid progression (Completed!)</li>
-					<li className='completed'>Character dungeon progression (Completed!)</li>
-					<li>Character dungeon mythic+ data</li>
-					<li>User account creation, database storage, and saving of characters</li>
+					<li>Displaying character dungeon mythic+ data</li>
+					<li>User account creation, database storage, and saving of favorite characters</li>
 				</ul>
 			</div>
 
@@ -58,6 +58,9 @@ function Welcome() {
 				<h3>Using the App</h3>
 				<p>To get started with the app, select a region and realm on the left, then search for a character by name.</p>
 				<p>The character's information will be displayed in this area, with a history tracked to the left.</p>
+				<br />
+				<p>You may also log in to your Battle.net account to automatically fetch your account's characters.</p>
+				<p>Simply click the 'Login with Battle.net' button in the upper left to be redirected to the login page.</p>
 				<br />
 				<h3>Don't have a World of Warcraft character?</h3>
 				<p>No problem! Click the "Random Character" button in the form on the left.</p>

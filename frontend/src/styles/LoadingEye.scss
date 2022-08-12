@@ -1,0 +1,25 @@
+.loading-container{
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.loading-eye {
+		width: 15%;
+		height: auto;
+		margin: 10px auto;
+	}
+
+	.loading-text {
+		font-family: monospace;
+		color: white;
+		clip-path: inset(0 3ch 0 0);
+		animation: loadingText 2s steps(4) infinite;
+	}
+
+	@keyframes loadingText {
+		to {
+			clip-path: inset(0 -1ch 0 0)
+		}
+	}
+	

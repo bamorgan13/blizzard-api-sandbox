@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchGear } from '../store/gear';
 import '../styles/GearDetails.scss';
+import LoadingEye from './LoadingEye';
 
 function CharacterGear() {
 	const dispatch = useDispatch();
@@ -35,7 +36,7 @@ function CharacterGear() {
 					);
 				})
 			) : (
-				<p>Fetching Gear...</p>
+				<LoadingEye loadingMessage='Fetching Gear...' />
 			)}
 		</div>
 	);

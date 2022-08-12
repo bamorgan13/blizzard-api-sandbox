@@ -65,11 +65,10 @@ export const fetchAuthorizedChars = (oAuth) => async (dispatch) => {
 		`https://us.api.blizzard.com/profile/user/wow?namespace=profile-us&locale=en_US&access_token=${oAuth}`
 	)
 	const charsRes = await chars.json();
-	// console.log(charsRes)
 
 	const authorizedChars = {}
 		// Data from initial request does not contain all that is stored with a generic character request.
-		// Will need to make additional requests per character for data and media assets
+		// Need to make additional requests per character for data and media assets
 		for (const account of charsRes.wow_accounts) {
 			for (const character of account.characters) {
 				const charRes = await fetch(character.character.href + '&access_token=' + oAuth);
@@ -77,19 +76,16 @@ export const fetchAuthorizedChars = (oAuth) => async (dispatch) => {
 				if (!charData) continue;
 				
 				const mediaRes = await fetch(charData.media.href + '&access_token=' + oAuth);
-				// const mediaData = await mediaRes.json();
 				const mediaData = mediaRes.ok ? await mediaRes.json() : null;
 				
 				
 				if (charData && mediaData){
-					console.log({mediaData})
 					const selectedData = selectCharInfo('us', charData, mediaData);
 					const charKey = `${selectedData.region}_${selectedData.realm.slug}_${selectedData.name.toLowerCase()}`;
 					authorizedChars[charKey] = selectedData;
 				}
 			}
 		}
-		console.log(authorizedChars)
 		dispatch(receiveAuthorizedChars(authorizedChars));
 }
 
