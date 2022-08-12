@@ -15,8 +15,8 @@ function Header() {
 		<header className='app-header'>
 			{
 				authorized ? 
-					<a className='header-auth-link' href={`https://battle.net/login/logout?ref=${redirectURI}`}>Logout {accountName}</a>
-					: <a className='header-auth-link' href={`https://oauth.battle.net/authorize?client_id=720e0cff60924f55b9685927ba82d7c8&scope=${encodeURIComponent('openid wow.profile')}&response_type=code&redirect_uri=${redirectURI}`}>Login with Battle.net</a>
+					<a className='header-auth-link logout' href={`https://battle.net/login/logout?ref=${redirectURI}`}><span className='auth-link logout'>Logout</span> {accountName}</a>
+					: <a className='header-auth-link login' href={`https://oauth.battle.net/authorize?client_id=720e0cff60924f55b9685927ba82d7c8&scope=${encodeURIComponent('openid wow.profile')}&response_type=code&redirect_uri=${redirectURI}`} ><span className='auth-link login'>Login with Battle.net</span></a>
 			}
 			<h1
 				data-tip='Return to Welcome Screen'

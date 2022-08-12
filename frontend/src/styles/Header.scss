@@ -26,6 +26,39 @@
 		min-width: fit-content;
 		color: white;
 	}
+
+
+	.auth-link {
+		border-radius: 5px;
+		padding: 3px 6px;
+		transition: 0.3s;
+		width: fit-content;
+
+		&.login {
+			background-image: url(/images/logos/bnet.png);
+			background-repeat: no-repeat;
+			background-position: 3px 3px;
+			padding-left: 24px;
+		}
+
+		&.logout {
+			background-color: red;
+	
+			&:hover {
+				background-color: darkred;
+			}
+		}
+
+		&.login {
+			background-color: #2980b9;
+	
+			&:hover {
+				background-color: #1d5880;
+			}
+		}
+
+
+	}
 }
 
 .header-links-list {
