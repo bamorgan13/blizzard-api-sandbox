@@ -37,7 +37,7 @@ export const defaultChar = {
 		race: 'Human',
 		spec: 'Web Development',
 		class: 'Programmer',
-		ilvl: 240,
+		ilvl: 340,
 		guild: 'Currently looking...',
 		lastLogin: 'Available Now!',
 		realm: {
@@ -105,10 +105,27 @@ export const defaultRaids = {
 	bryce_morgan: {...expansionTemplate}
 }
 
+export const defaultDungeons = {
+	bryce_morgan: {...expansionTemplate}
+}
+
+export const defaultSession = {
+	charHistory: [],
+	currentChar: null,
+	oAuth: null,
+	authorizedChars: [],
+	scope: null,
+	idToken: null,
+	authorized: false,
+	accountName: null
+}
+
 export const defaultStore = { 
 	characters: defaultChar, 
 	gear: defaultGear, 
 	mounts: defaultMounts, 
 	pets: defaultPets ,
-	raids: defaultRaids
+	raids: defaultRaids,
+	dungeons: defaultDungeons,
+	session: defaultSession
 };

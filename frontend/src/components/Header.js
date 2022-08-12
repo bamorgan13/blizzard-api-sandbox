@@ -1,22 +1,30 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ReactTooltip from '@huner2/react-tooltip';
 import { clearActiveChar } from '../store/session';
 import '../styles/Header.scss';
 
 function Header() {
 	const dispatch = useDispatch();
+	const authorized = useSelector((state) => state.session.authorized);
+	const accountName = useSelector((state) => state.session.accountName);
+
+	const redirectURI = process.env.REACT_APP_BASE_URL;
 
 	return (
 		<header className='app-header'>
-			<div className='header-spacer' />
+			{
+				authorized ? 
+					<a className='header-auth-link logout' href={`https://battle.net/login/logout?ref=${redirectURI}`}><span className='auth-link logout'>Logout</span> {accountName}</a>
+					: <a className='header-auth-link login' href={`https://oauth.battle.net/authorize?client_id=720e0cff60924f55b9685927ba82d7c8&scope=${encodeURIComponent('openid wow.profile')}&response_type=code&redirect_uri=${redirectURI}`} ><span className='auth-link login'>Login with Battle.net</span></a>
+			}
 			<h1
 				data-tip='Return to Welcome Screen'
 				onClick={() => {
 					dispatch(clearActiveChar());
 				}}
 			>
-				Blizz Sandbox - Wowhead Demo
+				Blizzard API Sandbox
 			</h1>
 			<ul className='header-links-list'>
 				<li>

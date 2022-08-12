@@ -3,7 +3,6 @@ from flask import Flask, request, redirect
 from flask_cors import CORS
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 import requests
-from urllib.parse import quote_plus
 
 from .config import Config
 
@@ -14,7 +13,6 @@ app.config.from_object(Config)
 # Application Security
 CORS(app)
 CSRFProtect(app)
-
 
 # Any request made over http is redirected to https.
 @app.before_request
@@ -43,16 +41,31 @@ def inject_csrf_token(response):
 def blizz_auth():
     url = 'https://us.battle.net/oauth/token'
 
-    clientId = os.environ.get('BLIZZ_CLIENT_ID')
-    clientSecret = os.environ.get('BLIZZ_CLIENT_SECRET')
+    redirect_uri =  os.environ.get('REACT_APP_BASE_URL')
+    client_id = os.environ.get('BLIZZ_CLIENT_ID')
+    client_secret = os.environ.get('BLIZZ_CLIENT_SECRET')
+    auth_code = request.args.get('code')
 
-    payload = {'grant_type': 'client_credentials'}
+    payload = {
+        'redirect_uri': redirect_uri,
+        'scope': 'openid wow.profile',
+        'grant_type': 'authorization_code',
+        'code': auth_code
+    } if auth_code else {'grant_type': 'client_credentials'}
 
-    res = requests.post(url, auth=requests.auth.HTTPBasicAuth(clientId, clientSecret), data=payload)
+    res = requests.post(url, auth=requests.auth.HTTPBasicAuth(client_id, client_secret), data=payload)
 
     parsed = res.json()
 
-    return parsed
+    if 'scope' in parsed:
+        access_token = parsed['access_token']
+        account_res = requests.get(f'https://us.battle.net/oauth/userinfo?access_token={access_token}')
+        account_res_parsed = account_res.json()
+        account_name = account_res_parsed['battletag']
+        parsed['account_name'] = account_name
+        return parsed
+    else:
+        return parsed
 
 
 @app.route('/', defaults={'path': ''})

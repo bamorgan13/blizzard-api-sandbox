@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchMounts } from '../store/mounts';
 import MountIndexItem from './MountIndexItem';
 import '../styles/CharacterMounts.scss';
+import LoadingEye from './LoadingEye';
 
 function CharacterMounts() {
 	const dispatch = useDispatch();
@@ -40,7 +41,7 @@ function CharacterMounts() {
 				</ul>
 				</>
 			) : (
-				<p>Fetching Mounts...</p>
+				<LoadingEye loadingMessage='Fetching Mounts...' />
 			)}
 		</div>
 	);

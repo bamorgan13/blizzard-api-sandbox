@@ -4,22 +4,28 @@ import { expansionTemplate } from "./defaults";
 // Strips the large character and media objects down to data that will be used by the app
 export function selectCharInfo(region, charData, media) {
 	const assets = {};
-	media.assets.forEach((asset) => {
+	media.assets?.forEach((asset) => {
 		assets[asset.key] = asset.value;
 	});
+
+	// Account for some older characters having different formatting if they have not logged in recently
+	assets.avatar = media.avatar_url || assets.avatar;
+	assets.inset = media.bust_url || assets.inset;
+	assets.main = media.render_url || assets.main;
+	
 	return {
 		name: charData.name,
 		region,
 		realm: {
-			name: charData.realm.name,
+			name: charData.realm.name.en_US || charData.realm.name,
 			slug: charData.realm.slug
 		},
 		level: charData.level,
-		faction: charData.faction.name,
-		gender: charData.gender.name,
-		race: charData.race.name,
-		spec: charData.active_spec.name,
-		class: charData.character_class.name,
+		faction: charData.faction.name.en_US || charData.faction.name,
+		gender: charData.gender.name.en_US || charData.gender.name,
+		race: charData.race.name.en_US || charData.race.name,
+		spec: charData.active_spec.name.en_US || charData.active_spec.name,
+		class: charData.character_class.name.en_US || charData.character_class.name,
 		ilvl: charData.equipped_item_level,
 		guild: charData.guild ? charData.guild.name : 'No Guild',
 		lastLogin: new Date(charData.last_login_timestamp).toLocaleString(),
@@ -29,9 +35,9 @@ export function selectCharInfo(region, charData, media) {
 
 // Returns an array of simplified character data for each item in charHistory
 // The simplified data is used to make history buttons in CharacterHistory component
-export function selectIndexData(state) {
-	return state.session.charHistory.map((charKey) => {
-		const iteratingChar = state.characters[charKey];
+export function selectIndexData(characterKeys, characterData) {
+	return characterKeys.map((charKey) => {
+		const iteratingChar = characterData[charKey];
 		return {
 			charKey: charKey,
 			name: iteratingChar.name,

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchInstances } from '../store/instances';
 import ExpansionDropdown from './ExpansionDropdown';
 import '../styles/CharacterInstances.scss'
+import LoadingEye from './LoadingEye';
 
 function CharacterInstances({type}) {
 	const dispatch = useDispatch();
@@ -31,7 +32,7 @@ function CharacterInstances({type}) {
           })}
 				</ul>
 			) : (
-				<p>Fetching {type === 'raid' ? 'Raids': 'Dungeons'}...</p>
+				<LoadingEye loadingMessage={`Fetching ${type === 'raid' ? 'Raids': 'Dungeons'}...`} />
 			)}
 		</div>
 	);
