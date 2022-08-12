@@ -41,12 +41,10 @@ def inject_csrf_token(response):
 def blizz_auth():
     url = 'https://us.battle.net/oauth/token'
 
-
-    redirect_uri =  os.environ.get('REDIRECT_URI_PRODUCTION') if os.environ.get('FLASK_ENV') == 'production' else os.environ.get('REDIRECT_URI_DEVELOPMENT')
+    redirect_uri =  os.environ.get('REACT_APP_BASE_URL')
     client_id = os.environ.get('BLIZZ_CLIENT_ID')
     client_secret = os.environ.get('BLIZZ_CLIENT_SECRET')
     auth_code = request.args.get('code')
-
 
     payload = {
         'redirect_uri': redirect_uri,
