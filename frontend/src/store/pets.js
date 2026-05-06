@@ -22,9 +22,12 @@ export const receivePetDetails = (data) => {
 // Fetches a character's battle pets from Blizzard API
 export const fetchCharPets = (region, realm, name, oAuth) => async (dispatch) => {
 	// fetchRetry attempts a refetch after a delay if we do not receive an ok response
-	const petData = await fetchRetry(
-		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}/collections/pets?namespace=profile-${region}&locale=en_US&access_token=${oAuth}`
-	);
+	const petData = await fetchRetry({
+		url: `https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}/collections/pets?namespace=profile-${region}&locale=en_US`, // &access_token=${oAuth}
+		headers: {
+				"Authorization": `Bearer ${oAuth}`
+			}
+	});
 	const selectedData = selectCharPetData(petData);
 
 	// A unique character key is generated combining the region, realm, and name
@@ -36,13 +39,19 @@ export const fetchCharPets = (region, realm, name, oAuth) => async (dispatch) =>
 
 // Fetches media data about a specific pet from Blizzard API
 export const fetchPetData = (id, creatureDisplayId, oAuth) => async (dispatch) => {
-	const petData = await fetchRetry(
-		`https://us.api.blizzard.com/data/wow/pet/${id}?namespace=static-us&locale=en_US&access_token=${oAuth}`
-	);
+	const petData = await fetchRetry({
+		url: `https://us.api.blizzard.com/data/wow/pet/${id}?namespace=static-us&locale=en_US`, // &access_token=${oAuth}
+		headers: {
+				"Authorization": `Bearer ${oAuth}`
+			}
+	});
 	const mediaData = creatureDisplayId
-		? await fetchRetry(
-				`https://us.api.blizzard.com/data/wow/media/creature-display/${creatureDisplayId}?namespace=static-us&locale=en_US&access_token=${oAuth}`
-			)
+		? await fetchRetry({
+			url: `https://us.api.blizzard.com/data/wow/media/creature-display/${creatureDisplayId}?namespace=static-us&locale=en_US`, // &access_token=${oAuth}
+			headers: {
+				"Authorization": `Bearer ${oAuth}`
+				}
+		})
 		: null;
 	const selectedData = selectPetDetails(petData, mediaData);
 

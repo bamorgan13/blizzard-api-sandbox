@@ -13,7 +13,12 @@ export const receiveGear = (key, data) => {
 // Fetches equipped gear data from Blizzard API
 export const fetchGear = (region, realm, name, oAuth) => async (dispatch) => {
 	const gearRes = await fetch(
-		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}/equipment?namespace=profile-${region}&locale=en_US&access_token=${oAuth}`
+		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}/equipment?namespace=profile-${region}&locale=en_US`, // &access_token=${oAuth}
+		{
+			headers: {
+				"Authorization": `Bearer ${oAuth}`
+			}
+		}
 	);
 	const gearData = await gearRes.json();
 	const selectedData = selectGearData(gearData);

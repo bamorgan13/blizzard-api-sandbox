@@ -22,9 +22,12 @@ export const receiveMountDetails = (data) => {
 // Fetches which mounts a character owns from Blizzard API
 export const fetchMounts = (region, realm, name, oAuth) => async (dispatch) => {
 	// fetchRetry attempts a refetch after a delay if we do not receive an ok response
-	const mountData = await fetchRetry(
-		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}/collections/mounts?namespace=profile-${region}&locale=en_US&access_token=${oAuth}`
-	);
+	const mountData = await fetchRetry({
+		url: `https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}/collections/mounts?namespace=profile-${region}&locale=en_US`, // &access_token=${oAuth}
+		headers: {
+				"Authorization": `Bearer ${oAuth}`
+			}
+	});
 	// const mountData = await mountRes.json();
 	const selectedData = selectCharMountData(mountData);
 
@@ -47,14 +50,20 @@ export const fetchMountData = (id, oAuth) => async (dispatch) => {
 	// fetchRetry attempts a refetch after a delay if we do not receive an ok response
 	// This is implemented since the large number of mounts often triggers a 'Too Many Requests'
 	// response from the Blizzard API.
-	const mountData = await fetchRetry(
-		`https://us.api.blizzard.com/data/wow/mount/${id}?namespace=static-us&locale=en_US&access_token=${oAuth}`
-	);
+	const mountData = await fetchRetry({
+		url: `https://us.api.blizzard.com/data/wow/mount/${id}?namespace=static-us&locale=en_US`, // &access_token=${oAuth}
+		headers: {
+				"Authorization": `Bearer ${oAuth}`
+			}
+	});
 
-	const mediaData = await fetchRetry(
-		`https://us.api.blizzard.com/data/wow/media/creature-display/${mountData.creature_displays[0]
-			.id}?namespace=static-us&locale=en_US&access_token=${oAuth}`
-	);
+	const mediaData = await fetchRetry({
+		url: `https://us.api.blizzard.com/data/wow/media/creature-display/${mountData.creature_displays[0]
+			.id}?namespace=static-us&locale=en_US`, // &access_token=${oAuth}
+		headers: {
+				"Authorization": `Bearer ${oAuth}`
+			}
+	});
 	
 	const selectedData = selectMountDetails(mountData, mediaData);
 

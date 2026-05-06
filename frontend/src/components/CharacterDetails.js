@@ -66,7 +66,7 @@ currentChar ? (
 				</nav>
 				{activeDetailMapping[activeDetail]}
 			</div>
-			<img className='character-model' src={currentChar.assets.main} alt={`${currentChar.name} profile`} />
+			<img className='character-model' src={currentChar.assets["main-raw"]} alt={`${currentChar.name} profile`} />
 			</>
 	) : currentCharKey && currentCharKey.error ? (
 		<CharNotFound />

@@ -35,7 +35,12 @@ export const fetchChar = (region, realm, name, oAuth) => async (dispatch) => {
 	}
 
 	const charRes = await fetch(
-		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}?namespace=profile-${region}&locale=en_US&access_token=${oAuth}`
+		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}?namespace=profile-${region}&locale=en_US`, // &access_token=${oAuth}
+		{
+			headers: {
+				"Authorization": `Bearer ${oAuth}`
+			}
+		}
 	);
 	const charData = await charRes.json();
 
@@ -46,7 +51,12 @@ export const fetchChar = (region, realm, name, oAuth) => async (dispatch) => {
 	} else {
 		// Only upon successfully fetching a character do we then attempt to fetch media
 		// The request is made with the href provided in the initial fetch
-		const mediaRes = await fetch(charData.media.href + '&access_token=' + oAuth);
+		const mediaRes = await fetch(charData.media.href, // + '&access_token=' + oAuth`
+						{
+							headers: {
+								"Authorization": `Bearer ${oAuth}`
+							}
+						});
 		const mediaData = await mediaRes.json();
 
 		// Data from both fetches is compounded before being dispatched to Redux
@@ -62,7 +72,12 @@ export const fetchChar = (region, realm, name, oAuth) => async (dispatch) => {
 export const fetchAuthorizedChars = (oAuth) => async (dispatch) => {
 	// Fetches the authorized user's characters
 	const chars = await fetch(
-		`https://us.api.blizzard.com/profile/user/wow?namespace=profile-us&locale=en_US&access_token=${oAuth}`
+		`https://us.api.blizzard.com/profile/user/wow?namespace=profile-us&locale=en_US`, // &access_token=${oAuth}
+		{
+			headers: {
+				"Authorization": `Bearer ${oAuth}`
+			}
+		}
 	)
 	const charsRes = await chars.json();
 
@@ -71,11 +86,23 @@ export const fetchAuthorizedChars = (oAuth) => async (dispatch) => {
 		// Need to make additional requests per character for data and media assets
 		for (const account of charsRes.wow_accounts) {
 			for (const character of account.characters) {
-				const charRes = await fetch(character.character.href + '&access_token=' + oAuth);
+				const charRes = await fetch(character.character.href, // + '&access_token=' + oAuth)
+						{
+							headers: {
+								"Authorization": `Bearer ${oAuth}`
+							}
+						}
+				)
 				const charData = charRes.ok ? await charRes.json() : null;
 				if (!charData) continue;
 				
-				const mediaRes = await fetch(charData.media.href + '&access_token=' + oAuth);
+				const mediaRes = await fetch(charData.media.href, // + '&access_token=' + oAuth);
+					{
+						headers: {
+							"Authorization": `Bearer ${oAuth}`
+						}
+					}
+				)
 				const mediaData = mediaRes.ok ? await mediaRes.json() : null;
 				
 				

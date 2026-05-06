@@ -7,9 +7,9 @@ import { setCurrentChar } from '../store/session';
 
 // "Random" characters to select from when the Random Character button is used
 const RANDOM_CHARACTERS = [
-	{ region: 'us', realm: 'terenas', name: 'zelrod' },
 	{ region: 'eu', realm: 'twisting-nether', name: 'methodsco' },
-	{ region: 'eu', realm: 'antonidas', name: 'ipsa' }
+	{ region: 'us', realm: 'illidan', name: 'imfiredup' },
+	{ region: 'eu', realm: 'tarren-mill', name: 'spenwarlockk' }
 ];
 
 function CharacterSearchForm() {
@@ -28,7 +28,12 @@ function CharacterSearchForm() {
 			if (oAuth) {
 				async function fetchRealms() {
 					const res = await fetch(
-						`https://${region}.api.blizzard.com/data/wow/realm/index?namespace=dynamic-${region}&locale=en_US&access_token=${oAuth}`
+						`https://${region}.api.blizzard.com/data/wow/realm/index?namespace=dynamic-${region}&locale=en_US`, // &access_token=${oAuth}
+						{
+							headers: {
+								"Authorization": `Bearer ${oAuth}`
+							}
+						}
 					);
 					const parsed = await res.json();
 

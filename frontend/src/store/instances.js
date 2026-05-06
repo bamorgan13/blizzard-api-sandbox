@@ -24,7 +24,12 @@ export const receiveInstanceDetails = (data, type) => {
 // Fetches instance progression data from Blizzard API
 export const fetchInstances = (region, realm, name, oAuth, type) => async (dispatch) => {
 	const instanceRes = await fetch(
-		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}/encounters/${type}s?namespace=profile-${region}&locale=en_US&access_token=${oAuth}`
+		`https://${region}.api.blizzard.com/profile/wow/character/${realm}/${name}/encounters/${type}s?namespace=profile-${region}&locale=en_US`, // &access_token=${oAuth}`
+		{
+			headers: {
+				"Authorization": `Bearer ${oAuth}`
+			}
+		}
 	);
 	const instanceData = await instanceRes.json();
 	const selectedData = selectCharInstanceData(instanceData, type);
@@ -38,13 +43,19 @@ export const fetchInstances = (region, realm, name, oAuth, type) => async (dispa
 
 // Fetches data about a specific instance (media, name, area, description, etc.) from Blizzard API
 export const fetchInstanceData = (id, oAuth, type) => async (dispatch) => {
-	const instanceData = await fetchRetry(
-		`https://us.api.blizzard.com/data/wow/journal-instance/${id}?namespace=static-us&locale=en_US&access_token=${oAuth}`
-	);
+	const instanceData = await fetchRetry({
+		url: `https://us.api.blizzard.com/data/wow/journal-instance/${id}?namespace=static-us&locale=en_US`, // &access_token=${oAuth}
+		headers: {
+			"Authorization": `Bearer ${oAuth}`
+		}
+	});
 
-	const mediaData = await fetchRetry(
-		`https://us.api.blizzard.com/data/wow/media/journal-instance/${id}?namespace=static-us&locale=en_US&access_token=${oAuth}`
-	);
+	const mediaData = await fetchRetry({
+		url: `https://us.api.blizzard.com/data/wow/media/journal-instance/${id}?namespace=static-us&locale=en_US`, // &access_token=${oAuth}
+		headers: {
+				"Authorization": `Bearer ${oAuth}`
+			}
+	});
 	const selectedData =selectInstanceDetails(instanceData, mediaData);
 
 	dispatch(receiveInstanceDetails(selectedData, type));

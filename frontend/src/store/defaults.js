@@ -98,7 +98,10 @@ export const expansionTemplate = {
 	"Warlords of Draenor": {},
 	"Legion": {},
 	"Battle for Azeroth": {},
-	"Shadowlands": {}
+	"Shadowlands": {},
+	"Dragonflight": {},
+	"The War Within": {},
+	"Midnight": {}
 }
 
 export const defaultRaids = {
