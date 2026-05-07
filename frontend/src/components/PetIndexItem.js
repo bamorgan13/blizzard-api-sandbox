@@ -1,23 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPetData } from '../store/pets.js';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import '../styles/DetailIndexItem.scss';
 
 function PetIndexItem({ pet: { speciesId, speciesName, nickname, level, quality, creatureDisplayId, isFavorite } }) {
-	const dispatch = useDispatch();
-	const oAuth = useSelector((state) => state.session.oAuth);
 	const pet = useSelector((state) => state.pets[speciesId]);
-
-	useEffect(
-		() => {
-			if (!pet) {
-				dispatch(fetchPetData(speciesId, creatureDisplayId, oAuth));
-			}
-		},
-		[ pet, speciesId, oAuth, dispatch, creatureDisplayId ]
-	);
 
 	// If we've fetched the additional pet data, we can show the media, otherwise
 	// we use only have the basic data passed from props.

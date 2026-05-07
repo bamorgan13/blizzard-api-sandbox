@@ -1,21 +1,9 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchMountData } from '../store/mounts.js';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import '../styles/DetailIndexItem.scss';
 
 function MountIndexItem({ mount: { id, name } }) {
-	const dispatch = useDispatch();
-	const oAuth = useSelector((state) => state.session.oAuth);
 	const mount = useSelector((state) => state.mounts[id]);
-
-	useEffect(
-		() => {
-			if (!mount) {
-				dispatch(fetchMountData(id, oAuth));
-			}
-		},
-		[ mount, id, oAuth, dispatch ]
-	);
 
 	// If we've fetched the additional mount data, we can show the media, otherwise
 	// we use only have the basic data passed from props.

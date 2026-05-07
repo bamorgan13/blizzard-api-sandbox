@@ -4,6 +4,7 @@ import { fetchCharPets } from '../store/pets';
 import PetIndexItem from './PetIndexItem';
 import '../styles/CharacterPets.scss';
 import LoadingEye from './LoadingEye';
+import { batchFetchPets } from '../utility';
 
 // Used to make comparisons when sorting pets
 const QUALITY_SORT_MAP = {
@@ -42,6 +43,12 @@ function CharacterPets() {
 		},
 		[ dispatch, oAuth, currentChar, charPets ]
 	);
+
+  useEffect(() => {
+    if (charPets) {
+      batchFetchPets({pets: charPets, headers: {"Authorization": `Bearer ${oAuth}`}, dispatch});
+    }
+  }, [charPets, oAuth, dispatch])
 
   useEffect( () => {
     if (charPets) {

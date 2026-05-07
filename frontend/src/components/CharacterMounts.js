@@ -4,6 +4,7 @@ import { fetchMounts } from '../store/mounts';
 import MountIndexItem from './MountIndexItem';
 import '../styles/CharacterMounts.scss';
 import LoadingEye from './LoadingEye';
+import { batchFetchMounts } from '../utility';
 
 function CharacterMounts() {
 	const dispatch = useDispatch();
@@ -18,6 +19,15 @@ function CharacterMounts() {
 			// Prevents refetching of mounts if already present in Redux store
 			if (!charMounts) {
 				dispatch(fetchMounts(currentChar.region, currentChar.realm.slug, currentChar.name.toLowerCase(), oAuth));
+			}
+		},
+		[ dispatch, oAuth, currentChar, charMounts ]
+	);
+
+	useEffect(() => {
+			if (charMounts) {
+				// Batch fetching of mount details to prevent 429 Too Many Requests responses from Blizzard API
+				batchFetchMounts({mounts: charMounts, headers: {"Authorization": `Bearer ${oAuth}`}, dispatch});
 			}
 		},
 		[ dispatch, oAuth, currentChar, charMounts ]
