@@ -211,7 +211,7 @@ const instanceNameFormatExceptions = {
 	'The Dreamrift': 'zone=16531/the-dreamrift',
 	'The Voidspire': 'zone=16340/the-voidspire',
 	'March on Quel\'Danas': 'zone=16342/isle-of-queldanas',
-	'Sporefall': 'zone=16279/16279'
+	'Sporefall': 'zone=16279/sporefall'
 
 }
 
